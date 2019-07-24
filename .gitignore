@@ -1,0 +1,10 @@
+# ignore resource folder for design/mockups
+Resources
+
+# ignore API keys/passwords in .env
+.env
+
+# ignore packages
+node_modules
+
+src/client
