@@ -11,23 +11,19 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiResponse: []
+      data: null
     };
   }
 
   callAPI() {
     fetch("http://localhost:5000/testApi")
-      .then(res => res.text())
-      .then(res => this.setState({ apiResponse: res }))
-      .catch(err => {
-        console.log(err);
-        return err;
-      });
+      .then(res => res.parse())
+      .then(data => this.setState({ data }));
   }
 
   componentDidMount() {
     this.callAPI();
-    console.log(this.state.apiResponse);
+    console.log(this.state.data);
   }
 
   render() {
@@ -37,7 +33,11 @@ class App extends Component {
 
         <main>
           <Route exact path="/" render={props => <Landing {...props} />} />
-          {this.state.apiResponse}
+          <ul>
+            {this.state.data.map(item => {
+              <li key={item.id}>{item.name}</li>;
+            })}
+          </ul>
         </main>
 
         <Footer />

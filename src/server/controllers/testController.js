@@ -1,5 +1,14 @@
 module.exports = {
   test(req, res, next) {
-    res.send("testing api works");
+    res.json([
+      {
+        id: 1,
+        name: "tim"
+      },
+      {
+        id: 2,
+        name: "bob"
+      }
+    ]);
   }
 };
