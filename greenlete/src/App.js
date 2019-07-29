@@ -11,22 +11,29 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: null
+      data: []
     };
   }
 
   callAPI() {
     fetch("http://localhost:5000/testApi")
-      .then(res => res.parse())
-      .then(data => this.setState({ data }));
+      .then(res => res.json())
+      .then(data => {
+        console.log(`fetch call data: `);
+        console.log(JSON.stringify(data));
+        return this.setState({ data }, () => {
+          console.log("inside callback: " + this.state.data);
+        });
+      });
   }
 
   componentDidMount() {
     this.callAPI();
-    console.log(this.state.data);
+    console.log(`after callAPI(): ${this.state.data}`);
   }
 
   render() {
+    console.log(`inside render: ${this.state.data}`);
     return (
       <div className="App">
         <Navbar />
@@ -34,9 +41,9 @@ class App extends Component {
         <main>
           <Route exact path="/" render={props => <Landing {...props} />} />
           <ul>
-            {this.state.data.map(item => {
-              <li key={item.id}>{item.name}</li>;
-            })}
+            {this.state.data.map(item => (
+              <li key={item.id}>{item.name}</li>
+            ))}
           </ul>
         </main>
 

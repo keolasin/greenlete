@@ -7,7 +7,7 @@ module.exports = {
       },
       {
         id: 2,
-        name: "bob"
+        name: "bobby"
       }
     ]);
   }
