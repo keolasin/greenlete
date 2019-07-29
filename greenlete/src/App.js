@@ -16,35 +16,26 @@ class App extends Component {
   }
 
   callAPI() {
-    fetch("http://localhost:5000/testApi")
+    fetch("http://localhost:5000/")
       .then(res => res.json())
       .then(data => {
-        console.log(`fetch call data: `);
-        console.log(JSON.stringify(data));
         return this.setState({ data }, () => {
-          console.log("inside callback: " + this.state.data);
+          console.log("State updated successfully");
         });
       });
   }
 
   componentDidMount() {
     this.callAPI();
-    console.log(`after callAPI(): ${this.state.data}`);
   }
 
   render() {
-    console.log(`inside render: ${this.state.data}`);
     return (
       <div className="App">
         <Navbar />
 
         <main>
           <Route exact path="/" render={props => <Landing {...props} />} />
-          <ul>
-            {this.state.data.map(item => (
-              <li key={item.id}>{item.name}</li>
-            ))}
-          </ul>
         </main>
 
         <Footer />
