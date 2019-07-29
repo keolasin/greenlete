@@ -19,10 +19,11 @@ module.exports = {
     // logger
     app.use(logger("dev"));
 
+    // settings for server
+    app.use(express.json());
+
     // bodyParser
     app.use(bodyParser.urlencoded({ extended: true }));
-
-    // express validator
 
     // express session
     app.use(

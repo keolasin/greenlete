@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Landing extends Component {
+class TotalsTracker extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,10 +14,12 @@ class Landing extends Component {
     return (
       <section>
         <h4>
-          <strong>{this.state.litter}</strong> pieces of trash picked up,{" "}
+          <strong>{this.state.litterCount}</strong> pieces of trash picked up,{" "}
           <strong>{this.state.milesCovered}</strong> miles covered.
         </h4>
       </section>
     );
   }
 }
+
+export default TotalsTracker;

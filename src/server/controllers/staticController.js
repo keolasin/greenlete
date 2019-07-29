@@ -1,5 +1,3 @@
 module.exports = {
-  index(req, res, next) {
-    res.render("static/index");
-  }
+  index(req, res, next) {}
 };
