@@ -5,17 +5,19 @@ class TotalsTracker extends Component {
     super(props);
     this.state = {
       // hard coded for now
-      litterCount: 20,
-      milesCovered: 500
+      litterCount: 0,
+      milesCovered: 0
     };
   }
 
   render() {
     return (
-      <section>
-        <h4>
-          <strong>{this.state.litterCount}</strong> pieces of trash picked up,{" "}
-          <strong>{this.state.milesCovered}</strong> miles covered.
+      <section className="tracker-bar">
+        <h4 className="global-tracker">
+          <strong className="litter-head">{this.state.litterCount}</strong>{" "}
+          pieces of trash picked up,{" "}
+          <strong className="miles-head">{this.state.milesCovered}</strong>{" "}
+          miles covered
         </h4>
       </section>
     );

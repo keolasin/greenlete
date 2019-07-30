@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-      <header>
-        <Link to="/">Greenlete</Link>
+      <header className="navbar">
+        <Link to="/" id="main-site-name">
+          Greenlete
+        </Link>
+        <Link to="/sign_up" className="sign-up-button">
+          Join
+        </Link>
       </header>
     );
   }
