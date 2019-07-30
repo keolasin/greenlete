@@ -15,7 +15,7 @@ class App extends Component {
   }
 
   callAPI() {
-    fetch("http://localhost:5000/")
+    fetch("/testApi")
       .then(res => res.json())
       .then(data => {
         return this.setState({ data }, () => {
