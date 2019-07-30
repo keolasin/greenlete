@@ -14,9 +14,9 @@ class TotalsTracker extends Component {
     return (
       <section className="tracker-bar">
         <h4 className="global-tracker">
-          <strong className="litter-head">{this.state.litterCount}</strong>{" "}
-          pieces of trash picked up,{" "}
-          <strong className="miles-head">{this.state.milesCovered}</strong>{" "}
+          <strong>{this.state.litterCount} </strong>
+          pieces of trash picked up,
+          <strong> {this.state.milesCovered} </strong>
           miles covered
         </h4>
       </section>
