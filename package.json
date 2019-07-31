@@ -6,7 +6,7 @@
   "scripts": {
     "test": "set NODE_ENV=test&& jasmine",
     "start": "nodemon src/server/server.js",
-    "heroku-postbuild": "cd greenlete && npm install & npm run build"
+    "heroku-postbuild": "cd greenlete && npm install && npm run build "
   },
   "repository": {
     "type": "git",
