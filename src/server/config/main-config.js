@@ -17,7 +17,7 @@ module.exports = {
     app.use(cors());
 
     // static files from react app in /greenlete
-    app.use(express.static(path.join(__dirname, "greenlete/build")));
+    app.use(express.static(path.join(__dirname, "../../../greenlete/build")));
 
     // logger
     app.use(logger("dev"));
