@@ -1,0 +1,152 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
+}
+.App {
+  flex-flow: column nowrap;
+  background-color: rgba(136, 232, 171, 0.1);
+  height: 100vh;
+  text-align: center;
+}
+.App,
+.navbar {
+  display: flex;
+  width: 100vw;
+}
+.navbar {
+  flex-direction: column nowrap;
+  border-bottom: 1px solid #115f7d;
+  max-height: content;
+  justify-content: space-between;
+}
+.navbar a {
+  text-decoration: none;
+}
+#main-site-name {
+  font-family: Bungee Shade, sans-serif;
+  color: #11883d;
+  border: 1px #449c65;
+  font-size: 2em;
+  line-height: 1em;
+}
+.sign-up-button {
+  background-color: rgba(136, 232, 171, 0.1);
+  border: 2px solid #115f7d;
+  font-family: Bungee;
+  color: #11883d;
+  flex: 0.5 1;
+  max-width: 120px;
+}
+main {
+  width: 100%;
+  display: flex;
+  flex: 1 1;
+}
+.landing-main {
+  display: flex;
+  flex: 1 1 100%;
+  flex-flow: column nowrap;
+}
+.site-splash {
+  text-align: center;
+}
+.site-splash > h1 {
+  color: #115f7d;
+  font-family: Bungee, sans-serif;
+  border: 1px #449c65;
+  line-height: 1em;
+}
+.img-container {
+  display: flex;
+  flex: 1 1;
+  background-color: #88e8ab;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+img[alt~="Trash"] {
+  max-width: 50%;
+  height: auto;
+}
+.tracker-bar {
+  margin-top: 10px;
+  background-color: #88e8ab;
+  color: #115f7d;
+  width: 100%;
+}
+.global-tracker {
+  font-family: Bungee;
+  font-size: 1em;
+  -webkit-margin-before: 0;
+  margin-block-start: 0;
+  -webkit-margin-after: 0;
+  margin-block-end: 0;
+  -webkit-margin-start: 0;
+  margin-inline-start: 0;
+  -webkit-margin-end: 0;
+  margin-inline-end: 0;
+}
+.global-tracker > strong {
+  color: #11883d;
+  font-size: 1.5em;
+  line-height: 0.5em;
+}
+footer {
+  background-color: #11883d;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+footer > a {
+  text-decoration: none;
+  font-family: Bungee;
+  font-size: 0.8em;
+}
+@media (min-width: 800px) {
+  .App {
+    align-content: center;
+    align-items: center;
+  }
+  .navbar {
+    flex-flow: row wrap;
+    max-width: 80vw;
+    justify-content: space-around;
+    max-height: 10vh;
+  }
+  .sign-up-button {
+    border: 2px solid #115f7d;
+    font-family: Bungee;
+    color: #11883d;
+    flex: 0.5 1;
+    max-width: 180px;
+  }
+  main {
+    display: flex;
+    max-width: 60vw;
+    align-content: center;
+  }
+  .landing-main {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+  .site-splash {
+    max-width: 80vw;
+  }
+  .landing-main {
+    width: 60vw;
+  }
+  .global-tracker {
+    font-size: 1.5em;
+  }
+  footer {
+    width: 80%;
+  }
+}
+/*# sourceMappingURL=main.a8f4abb8.chunk.css.map */
