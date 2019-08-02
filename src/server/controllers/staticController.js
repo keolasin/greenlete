@@ -1,6 +1,8 @@
 const path = require("path");
 module.exports = {
   index(req, res, next) {
-    res.sendFile(path.join(__dirname, "../../greenlete/build", "index.html"));
+    res.sendFile(
+      path.join(__dirname, "../../../greenlete/build", "index.html")
+    );
   }
 };
