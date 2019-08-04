@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Router } from "react-router-dom";
 import "./App.css";
 
 import Navbar from "./components/common/Navbar";
@@ -15,16 +15,16 @@ class App extends Component {
   }
 
   callAPI() {
-    fetch("/testApi")
+    fetch("/api/testApi")
       .then(res => res.json())
-      .then(data => {
-        return this.setState({ data }, () => {
-          console.log("State updated successfully");
+      .then(serverData => {
+        this.setState({ data: serverData }, () => {
+          console.log("State updated");
         });
       });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.callAPI();
   }
 
@@ -32,11 +32,13 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar />
-
         <main>
-          <Route exact path="/" render={props => <Landing {...props} />} />
+          <Route
+            exact
+            path="/landing"
+            render={props => <Landing {...props} />}
+          />
         </main>
-
         <Footer />
       </div>
     );

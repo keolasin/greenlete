@@ -7,7 +7,7 @@ const testController = require("../controllers/testController");
 
 // define routes
 /* GET */
-router.get("/testApi", testController.test); // test data
+router.get("/api/testApi", testController.test); // test data
 
 // export router
 module.exports = router;
