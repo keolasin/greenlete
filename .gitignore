@@ -8,3 +8,5 @@ Resources
 node_modules
 
 src/client
+
+src/db/config/config.json
