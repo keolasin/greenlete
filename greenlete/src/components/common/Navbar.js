@@ -21,6 +21,10 @@ class Navbar extends Component {
           Greenlete
         </Link>
 
+        <Link to="/users/sign_in" className="sign-up-button">
+          Sign in
+        </Link>
+
         <Link to="/users/sign_up" className="sign-up-button">
           Join
         </Link>

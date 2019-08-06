@@ -2,6 +2,7 @@ const userQueries = require("../../db/queries.users.js");
 const passport = require("passport");
 
 module.exports = {
+  // user sign up
   create(req, res, next) {
     // pull values from req.body and add them to a newUser object
     let newUser = {
@@ -21,5 +22,21 @@ module.exports = {
         });
       }
     });
+  },
+
+  // user sign in
+  signIn(req, res, next) {
+    passport.authenticate("local")(req, res, function() {
+      if (!req.user) {
+        res.redirect("/users/sign_in");
+      } else {
+        res.redirect("/");
+      }
+    });
+  },
+
+  signOut(req, res, next) {
+    req.logout();
+    res.redirect("/");
   }
 };

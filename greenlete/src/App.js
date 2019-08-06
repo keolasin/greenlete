@@ -6,6 +6,7 @@ import Navbar from "./components/common/Navbar";
 import Landing from "./components/Landing";
 import Footer from "./components/common/Footer";
 import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class App extends Component {
   }
 
   callAPI() {
-    fetch("/api/testApi")
+    fetch("/api/users/:id")
       .then(res => res.json())
       .then(resData => {
         console.log(resData);
@@ -41,15 +42,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar
-          isLoading={this.state.isLoading}
-          userData={this.state.userData}
-        />
+        <Navbar userData={this.state.userData} />
         <main>
           <Route exact path="/" render={props => <Landing {...props} />} />
           <Route
             path="/users/sign_up"
             render={props => <SignUp {...props} />}
+          />
+          <Route
+            path="/users/sign_in"
+            render={props => <SignIn {...props} />}
           />
         </main>
         <Footer />
