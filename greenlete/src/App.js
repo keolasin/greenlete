@@ -5,22 +5,32 @@ import "./App.css";
 import Navbar from "./components/common/Navbar";
 import Landing from "./components/Landing";
 import Footer from "./components/common/Footer";
+import SignUp from "./components/SignUp";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      isLoading: false,
+      currentUser: false,
+      userData: {}
     };
   }
 
   callAPI() {
     fetch("/api/testApi")
       .then(res => res.json())
-      .then(serverData => {
-        this.setState({ data: serverData }, () => {
-          console.log("State updated");
-        });
+      .then(resData => {
+        console.log(resData);
+        this.setState(
+          {
+            loading: false,
+            userData: resData
+          },
+          () => {
+            console.log("State updated");
+          }
+        );
       });
   }
 
@@ -31,12 +41,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
+        <Navbar
+          isLoading={this.state.isLoading}
+          userData={this.state.userData}
+        />
         <main>
+          <Route exact path="/" render={props => <Landing {...props} />} />
           <Route
-            exact
-            path="/landing"
-            render={props => <Landing {...props} />}
+            path="/users/sign_up"
+            render={props => <SignUp {...props} />}
           />
         </main>
         <Footer />

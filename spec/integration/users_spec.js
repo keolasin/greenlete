@@ -23,7 +23,7 @@ describe("routes : users", () => {
     //confirm form with valid values for attributes to create user
     it("should create a new user with valid values and redirect", done => {
       const options = {
-        url: base,
+        url: `${base}register`,
         form: {
           email: "athlete@greenlete.com",
           password: "123456789"
@@ -50,7 +50,7 @@ describe("routes : users", () => {
     it("should not create a new user with invalid attributes and redirect", done => {
       request.post(
         {
-          url: base,
+          url: `${base}register`,
           form: {
             email: "negative",
             password: "123456789"
