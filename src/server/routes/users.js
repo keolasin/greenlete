@@ -4,7 +4,7 @@ const validation = require("./validation");
 
 const userController = require("../controllers/userController");
 
-router.get("/api/users/:id", userController.userInfo);
+router.get("/api/users/check", userController.check);
 
 router.post(
   "/api/users/register",
@@ -12,10 +12,15 @@ router.post(
   userController.create
 );
 
-router.post(
-  "/api/users/sign_in",
-  validation.validateUsers,
-  userController.signIn
-);
+router.post("/api/users/sign_in", userController.signIn);
+
+router.post("/api/users/logout", (req, res) => {
+  if (req.user) {
+    req.logout();
+    res.send({ message: "Logging out" });
+  } else {
+    res.send({ message: "No user to log out" });
+  }
+});
 
 module.exports = router;

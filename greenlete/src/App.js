@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Router } from "react-router-dom";
+import { Route } from "react-router-dom";
 import "./App.css";
 
 import Navbar from "./components/common/Navbar";
@@ -7,51 +7,69 @@ import Landing from "./components/Landing";
 import Footer from "./components/common/Footer";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import Dashboard from "./components/Dashboard";
+import axios from "axios";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: false,
-      currentUser: false,
-      userData: {}
+      loggedIn: false,
+      userData: null
     };
+
+    this.updateUser = this.updateUser.bind(this);
   }
 
-  callAPI() {
-    fetch("/api/users/:id")
-      .then(res => res.json())
-      .then(resData => {
-        console.log(resData);
-        this.setState(
-          {
-            loading: false,
-            userData: resData
-          },
-          () => {
-            console.log("State updated");
-          }
-        );
-      });
+  checkApiUser() {
+    axios(`/api/users/check`).then(res => {
+      if (res.data.user) {
+        this.setState({
+          loggedIn: true,
+          userData: res.data.user
+        });
+      } else {
+        this.setState({
+          loggedIn: false,
+          userData: null
+        });
+      }
+    });
+  }
+
+  updateUser(userObject) {
+    this.setState(userObject);
   }
 
   componentWillMount() {
-    this.callAPI();
+    this.checkApiUser();
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
-        <Navbar userData={this.state.userData} />
+        <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
         <main>
-          <Route exact path="/" render={props => <Landing {...props} />} />
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <Landing {...props} updateUser={this.updateUser} />
+            )}
+          />
           <Route
             path="/users/sign_up"
             render={props => <SignUp {...props} />}
           />
           <Route
             path="/users/sign_in"
-            render={props => <SignIn {...props} />}
+            render={props => <SignIn {...props} updateUser={this.updateUser} />}
+          />
+          <Route
+            path={`/users/:id/dashboard`}
+            render={props => <Dashboard {...props} />}
           />
         </main>
         <Footer />

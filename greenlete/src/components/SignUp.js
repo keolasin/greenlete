@@ -10,6 +10,7 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: "",
       email: "",
       password: ""
     };
@@ -31,14 +32,22 @@ class SignUp extends Component {
       method: "post",
       url: "/api/users/register",
       data: this.state
-    }).then(res => {
-      console.log(res);
-    });
+    })
+      .then(res => {
+        if (!res.data.errorMessage) {
+        } else {
+          let error = res.error;
+        }
+      })
+      .catch(error => {
+        console.log("Sign-up error:");
+        console.log(error);
+      });
   }
 
   render() {
     return (
-      <article className="sign-up-page">
+      <article className="sign-up">
         <Container maxWidth="lg">
           <Button type="submit" variant="outlined" color="primary">
             Google
@@ -47,6 +56,18 @@ class SignUp extends Component {
             Strava
           </Button>
           <form action="/api/users/register" method="post">
+            <TextField
+              id="outlined-name"
+              label="Username"
+              className="text-field"
+              name="username"
+              autoComplete="username"
+              margin="normal"
+              variant="outlined"
+              value={this.state.username}
+              onChange={this.handleInputChange}
+            />
+
             <TextField
               id="outlined-email-input"
               label="Email"
@@ -59,6 +80,7 @@ class SignUp extends Component {
               value={this.state.email}
               onChange={this.handleInputChange}
             />
+
             <TextField
               id="outlined-password-input"
               label="Password"
@@ -72,7 +94,7 @@ class SignUp extends Component {
               onChange={this.handleInputChange}
             />
             <Button type="submit" variant="contained" color="primary">
-              Sign up
+              Join
             </Button>
           </form>
         </Container>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TotalsTracker from "./common/TotalsTracker";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
@@ -10,6 +9,7 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: "",
       email: "",
       password: ""
     };
@@ -31,9 +31,19 @@ class SignIn extends Component {
       method: "post",
       url: "/api/users/sign_in",
       data: this.state
-    }).then(res => {
-      console.log(res);
-    });
+    })
+      .then(res => {
+        if (res.status === 200) {
+          this.props.updateUser({
+            loggedIn: true,
+            userData: res.data.user
+          });
+        }
+      })
+      .catch(error => {
+        console.log("Login error");
+        console.log(error);
+      });
   }
 
   render() {
@@ -48,17 +58,17 @@ class SignIn extends Component {
           </Button>
           <form action="/api/users/sign_in" method="post">
             <TextField
-              id="outlined-email-input"
-              label="Email"
+              id="outlined-name"
+              label="Username"
               className="text-field"
-              type="email"
-              name="email"
-              autoComplete="email"
+              name="username"
+              autoComplete="username"
               margin="normal"
               variant="outlined"
-              value={this.state.email}
+              value={this.state.username}
               onChange={this.handleInputChange}
             />
+
             <TextField
               id="outlined-password-input"
               label="Password"
@@ -71,6 +81,7 @@ class SignIn extends Component {
               value={this.state.password}
               onChange={this.handleInputChange}
             />
+
             <Button type="submit" variant="contained" color="primary">
               Sign in
             </Button>
