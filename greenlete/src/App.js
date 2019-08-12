@@ -22,9 +22,9 @@ class App extends Component {
     this.updateUser = this.updateUser.bind(this);
   }
 
-  checkApiUser() {
+  checkUser() {
     axios(`/api/users/check`).then(res => {
-      if (res.data.user) {
+      if (res.user) {
         this.setState({
           loggedIn: true,
           userData: res.data.user
@@ -43,11 +43,10 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.checkApiUser();
+    this.checkUser();
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="App">
         <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />

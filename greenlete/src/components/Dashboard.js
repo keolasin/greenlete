@@ -15,7 +15,9 @@ class Dashboard extends Component {
           <h1>Healthy you, healthy planet</h1>
         </header>
 
-        <Container maxWidth="lg"></Container>
+        <Container maxWidth="lg">
+          <p>Welcome!</p>
+        </Container>
         <TotalsTracker />
       </article>
     );

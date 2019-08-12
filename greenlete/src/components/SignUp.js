@@ -34,9 +34,15 @@ class SignUp extends Component {
       data: this.state
     })
       .then(res => {
+        console.log(res);
         if (!res.data.errorMessage) {
+          this.props.updateUser({
+            loggedIn: true,
+            userData: res.data.user
+          });
         } else {
           let error = res.error;
+          console.log(error);
         }
       })
       .catch(error => {

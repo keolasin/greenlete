@@ -8,10 +8,6 @@ class Navbar extends Component {
     this.logout = this.logout.bind(this);
   }
 
-  isSignedIn() {
-    return this.props.userData.id ? true : false;
-  }
-
   logout(event) {
     event.preventDefault();
     axios

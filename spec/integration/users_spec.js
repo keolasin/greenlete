@@ -25,6 +25,7 @@ describe("routes : users", () => {
       const options = {
         url: `${base}register`,
         form: {
+          username: "Adam Apple",
           email: "athlete@greenlete.com",
           password: "123456789"
         }
@@ -52,6 +53,7 @@ describe("routes : users", () => {
         {
           url: `${base}register`,
           form: {
+            username: "Adam Apple",
             email: "negative",
             password: "123456789"
           }

@@ -32,13 +32,6 @@ module.exports = {
     // validator
     app.use(expressValidator());
 
-    // passport
-    passportConfig.init(app);
-    app.use((req, res, next) => {
-      res.locals.currentUser = req.user;
-      next();
-    });
-
     // express session
     app.use(
       session({
@@ -48,5 +41,12 @@ module.exports = {
         cookie: { maxAge: 604800 } // 7 days
       })
     );
+
+    // passport
+    passportConfig.init(app);
+    app.use((req, res, next) => {
+      res.locals.currentUser = req.user;
+      next();
+    });
   }
 };

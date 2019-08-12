@@ -14,13 +14,6 @@ router.post(
 
 router.post("/api/users/sign_in", userController.signIn);
 
-router.post("/api/users/logout", (req, res) => {
-  if (req.user) {
-    req.logout();
-    res.send({ message: "Logging out" });
-  } else {
-    res.send({ message: "No user to log out" });
-  }
-});
+router.post("/api/users/logout", userController.signOut);
 
 module.exports = router;
