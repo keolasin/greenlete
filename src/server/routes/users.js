@@ -13,7 +13,6 @@ router.post(
 );
 
 router.post("/api/users/sign_in", userController.signIn);
-
-router.post("/api/users/logout", userController.signOut);
+router.post("/api/users/sign_out", userController.signOut);
 
 module.exports = router;

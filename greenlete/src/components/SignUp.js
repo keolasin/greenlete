@@ -53,8 +53,15 @@ class SignUp extends Component {
 
   render() {
     return (
-      <article className="sign-up">
-        <Container maxWidth="lg">
+      <article className="sign-in-page">
+        <section className="sign-up-images">
+          <img
+            className="welcome-image"
+            src="https://greenlete.s3-us-west-1.amazonaws.com/assets/IMG_20190620_185724283_HDR.jpg"
+            alt="Trash from bike ride"
+          />
+        </section>
+        <section className="sign-in-box">
           <Button type="submit" variant="outlined" color="primary">
             Google
           </Button>
@@ -72,6 +79,8 @@ class SignUp extends Component {
               variant="outlined"
               value={this.state.username}
               onChange={this.handleInputChange}
+              required
+              autofocus
             />
 
             <TextField
@@ -85,6 +94,7 @@ class SignUp extends Component {
               variant="outlined"
               value={this.state.email}
               onChange={this.handleInputChange}
+              required
             />
 
             <TextField
@@ -98,21 +108,13 @@ class SignUp extends Component {
               variant="outlined"
               value={this.state.password}
               onChange={this.handleInputChange}
+              required
             />
             <Button type="submit" variant="contained" color="primary">
               Join
             </Button>
           </form>
-        </Container>
-
-        <Container maxWidth="lg">
-          <img
-            className="welcome-image"
-            src="https://greenlete.s3-us-west-1.amazonaws.com/assets/IMG_20190620_185724283_HDR.jpg"
-            alt="Trash from bike ride"
-          />
-        </Container>
-        <TotalsTracker />
+        </section>
       </article>
     );
   }

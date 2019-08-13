@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import "./App.css";
+import axios from "axios";
 
 import Navbar from "./components/common/Navbar";
 import Landing from "./components/Landing";
@@ -8,7 +9,6 @@ import Footer from "./components/common/Footer";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Dashboard from "./components/Dashboard";
-import axios from "axios";
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class App extends Component {
 
   checkUser() {
     axios(`/api/users/check`).then(res => {
-      if (res.user) {
+      if (res.data.user) {
         this.setState({
           loggedIn: true,
           userData: res.data.user
@@ -42,14 +42,19 @@ class App extends Component {
     this.setState(userObject);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.checkUser();
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
-        <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+        <Navbar
+          updateUser={this.updateUser}
+          loggedIn={this.state.loggedIn}
+          userData={this.state.userData}
+        />
         <main>
           <Route
             exact
@@ -60,7 +65,7 @@ class App extends Component {
           />
           <Route
             path="/users/sign_up"
-            render={props => <SignUp {...props} />}
+            render={props => <SignUp {...props} updateUser={this.updateUser} />}
           />
           <Route
             path="/users/sign_in"

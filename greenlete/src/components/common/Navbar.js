@@ -10,8 +10,10 @@ class Navbar extends Component {
 
   logout(event) {
     event.preventDefault();
-    axios
-      .post("users/logout")
+    axios({
+      method: "post",
+      url: `/api/users/sign_out`
+    })
       .then(res => {
         if (res.status === 200) {
           this.props.updateUser({
@@ -21,27 +23,39 @@ class Navbar extends Component {
         }
       })
       .catch(error => {
-        console.log("Logout error: ");
-        console.log(error);
+        console.log("Logout error ", error);
       });
   }
 
   render() {
     const loggedIn = this.props.loggedIn;
+    let dashboardPath = loggedIn
+      ? `/users/${this.props.userData}/dashboard`
+      : "/";
 
     return (
       <header className="navbar">
-        <Link to="/" id="main-site-name">
+        <Link to={dashboardPath} id="main-site-name">
           Greenlete
         </Link>
-
-        <Link to="/users/sign_in" className="sign-up-button">
-          Sign in
-        </Link>
-
-        <Link to="/users/sign_up" className="sign-up-button">
-          Join
-        </Link>
+        {loggedIn ? (
+          <Link
+            to="/"
+            onClick={event => this.logout(event)}
+            className="large-button"
+          >
+            Logout
+          </Link>
+        ) : (
+          <section>
+            <Link to="/users/sign_in" className="large-button">
+              Sign in
+            </Link>
+            <Link to="/users/sign_up" className="large-button">
+              Sign Up
+            </Link>
+          </section>
+        )}
       </header>
     );
   }

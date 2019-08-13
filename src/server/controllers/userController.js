@@ -5,7 +5,7 @@ module.exports = {
   // check if user is signed in
   check(req, res, next) {
     if (req.user) {
-      res.send({ user: req.user });
+      res.send({ user: req.user.id });
     } else {
       res.send({ user: null });
     }
