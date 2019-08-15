@@ -25,17 +25,21 @@
   font-family: "Bungee Shade", sans-serif;
   color: #11883d;
   border: 1px #449c65;
-  font-size: 2em;
+  font-size: 1.4em;
   line-height: 1em;
 }
 
-.sign-up-button {
+.large-button {
   background-color: rgba(136, 232, 171, 0.1);
   border: 2px solid #115f7d;
   font-family: "Bungee";
   color: #11883d;
   flex: 0.5;
   max-width: 120px;
+}
+
+.card-container {
+  display: flex;
 }
 
 /* main */
@@ -76,12 +80,44 @@ img[alt~="Trash"] {
   height: auto;
 }
 
+/* sign in */
+.sign-in-page {
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.sign-in-box {
+  display: flex;
+  flex-flow: column nowrap;
+  max-height: 100%;
+  height: 80%;
+  width: 90%;
+  justify-content: center;
+  background-color: ;
+}
+
+.sign-in-box > form {
+  display: flex;
+  flex-flow: column;
+}
+
+.sign-up-images {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
 /* tracker bar */
 .tracker-bar {
   margin-top: 10px;
   background-color: #88e8ab;
   color: #115f7d;
   width: 100%;
+  align-self: flex-end;
 }
 
 .global-tracker {
@@ -115,15 +151,63 @@ footer > a {
 
 /* large screens */
 @media all and (min-width: 800px) {
+  #main-site-name {
+    font-size: 2em;
+  }
+
   .App {
     align-content: center;
     align-items: center;
   }
   .navbar {
     flex-flow: row wrap;
-    max-width: 80vw;
+    max-width: 90vw;
     justify-content: space-around;
     max-height: 10vh;
+  }
+
+  /* log-in */
+  .sign-in-page {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .sign-in-box {
+    display: flex;
+    flex-flow: column nowrap;
+    max-height: 100%;
+    height: 80%;
+    width: 60%;
+    justify-content: center;
+    margin: 10px;
+  }
+
+  .sign-in-box > form {
+    display: flex;
+    flex-flow: column;
+    margin: 10px;
+  }
+
+  img[alt~="Trash"] {
+    max-width: 70%;
+    height: auto;
+  }
+  .sign-up-images {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 90%;
+    background-color: #88e8ab;
+  }
+
+  .sign-up-images > img[alt~="Trash"] {
+    width: 75%;
+    height: auto;
   }
 
   .sign-up-button {
@@ -134,10 +218,28 @@ footer > a {
     max-width: 180px;
   }
 
+  .how-to-main {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+
+  .how-to-main > header {
+    align-self: flex-start;
+  }
+
+  .how-to-main > section {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+  }
+
   main {
     display: flex;
-    max-width: 60vw;
+    max-width: 90vw;
     align-content: center;
+    justify-content: center;
   }
 
   .landing-main {
@@ -157,6 +259,6 @@ footer > a {
     font-size: 1.5em;
   }
   footer {
-    width: 80%;
+    width: 90vw;
   }
 }

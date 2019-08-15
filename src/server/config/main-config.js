@@ -10,6 +10,7 @@ const path = require("path");
 const expressValidator = require("express-validator");
 const session = require("express-session");
 const logger = require("morgan");
+const passportConfig = require("./passport-config");
 
 module.exports = {
   init(app, express) {
@@ -28,6 +29,9 @@ module.exports = {
     // bodyParser
     app.use(bodyParser.urlencoded({ extended: true }));
 
+    // validator
+    app.use(expressValidator());
+
     // express session
     app.use(
       session({
@@ -37,5 +41,12 @@ module.exports = {
         cookie: { maxAge: 604800 } // 7 days
       })
     );
+
+    // passport
+    passportConfig.init(app);
+    app.use((req, res, next) => {
+      res.locals.currentUser = req.user;
+      next();
+    });
   }
 };
