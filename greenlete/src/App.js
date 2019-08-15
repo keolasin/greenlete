@@ -4,11 +4,12 @@ import "./App.css";
 import axios from "axios";
 
 import Navbar from "./components/common/Navbar";
-import Landing from "./components/Landing";
+import Landing from "./components/views/Landing";
 import Footer from "./components/common/Footer";
-import SignUp from "./components/SignUp";
-import SignIn from "./components/SignIn";
-import Dashboard from "./components/Dashboard";
+import SignUp from "./components/views/Login/SignUp";
+import SignIn from "./components/views/Login/SignIn";
+import Dashboard from "./components/views/Dashboard/Dashboard";
+import HowTo from "./components/views/Dashboard/HowTo";
 
 class App extends Component {
   constructor(props) {
@@ -42,12 +43,11 @@ class App extends Component {
     this.setState(userObject);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.checkUser();
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="App">
         <Navbar
@@ -74,6 +74,10 @@ class App extends Component {
           <Route
             path={`/users/:id/dashboard`}
             render={props => <Dashboard {...props} />}
+          />
+          <Route
+            path={`/users/:id/how_to`}
+            render={props => <HowTo {...props} />}
           />
         </main>
         <Footer />

@@ -38,6 +38,10 @@
   max-width: 120px;
 }
 
+.card-container {
+  display: flex;
+}
+
 /* main */
 main {
   width: 100%;
@@ -113,6 +117,7 @@ img[alt~="Trash"] {
   background-color: #88e8ab;
   color: #115f7d;
   width: 100%;
+  align-self: flex-end;
 }
 
 .global-tracker {
@@ -186,12 +191,9 @@ footer > a {
     flex-flow: column;
     margin: 10px;
   }
-  .sign-up-images > img[alt~="Trash"] {
-    max-width: 80%;
-    height: auto;
-  }
+
   img[alt~="Trash"] {
-    max-width: 40%;
+    max-width: 70%;
     height: auto;
   }
   .sign-up-images {
@@ -199,10 +201,15 @@ footer > a {
     align-items: center;
     justify-content: center;
     width: 50%;
-    padding: 65px 90px;
+    height: 90%;
     background-color: #88e8ab;
-    margin: 10px;
   }
+
+  .sign-up-images > img[alt~="Trash"] {
+    width: 75%;
+    height: auto;
+  }
+
   .sign-up-button {
     border: 2px solid #115f7d;
     font-family: "Bungee";
@@ -211,10 +218,28 @@ footer > a {
     max-width: 180px;
   }
 
+  .how-to-main {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+
+  .how-to-main > header {
+    align-self: flex-start;
+  }
+
+  .how-to-main > section {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+  }
+
   main {
     display: flex;
     max-width: 90vw;
     align-content: center;
+    justify-content: center;
   }
 
   .landing-main {

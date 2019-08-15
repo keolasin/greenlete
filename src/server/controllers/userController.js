@@ -29,7 +29,7 @@ module.exports = {
         // if user created successfully, auth user by calling passport.authenticate()
         // redirects to dashboard, uses function in passport-config.js where local strategy defined
         passport.authenticate("local")(req, res, () => {
-          res.redirect(`/users/${req.user.id}/dashboard/how_to`);
+          res.redirect(`/users/${req.user.id}/how_to`);
         });
       }
     });

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { styles } from "../styles/navbar";
 
 class Navbar extends Component {
   constructor(props) {
@@ -29,29 +30,37 @@ class Navbar extends Component {
 
   render() {
     const loggedIn = this.props.loggedIn;
-    let dashboardPath = loggedIn
-      ? `/users/${this.props.userData}/dashboard`
-      : "/";
+    let { userData } = this.props;
+    let dashboardPath = loggedIn ? `/users/${userData}/dashboard` : "/";
 
     return (
       <header className="navbar">
         <Link to={dashboardPath} id="main-site-name">
           Greenlete
         </Link>
+
         {loggedIn ? (
-          <Link
-            to="/"
-            onClick={event => this.logout(event)}
-            className="large-button"
-          >
-            Logout
-          </Link>
+          <section style={styles.secondaryNavContainer}>
+            <Link to={`/users/${userData}/stats`} style={styles.dashLinks}>
+              Stats
+            </Link>
+            <Link to={`/users/${userData}/addWorkout`} style={styles.dashLinks}>
+              Add a workout
+            </Link>
+            <Link
+              to="/users/sign_in"
+              onClick={event => this.logout(event)}
+              style={styles.largeButton}
+            >
+              Logout
+            </Link>
+          </section>
         ) : (
           <section>
-            <Link to="/users/sign_in" className="large-button">
+            <Link to="/users/sign_in" style={styles.largeButton}>
               Sign in
             </Link>
-            <Link to="/users/sign_up" className="large-button">
+            <Link to="/users/sign_up" style={styles.largeButton}>
               Sign Up
             </Link>
           </section>
