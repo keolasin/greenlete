@@ -14,7 +14,27 @@ module.exports = {
     const errors = req.validationErrors();
 
     if (errors) {
-      return res.redirect(req.headers.referer);
+      return res.json({ error: errors, redirect: req.headers.referer });
+    } else {
+      return next();
+    }
+  },
+
+  // workout validation
+  validateWorkouts(req, res, next) {
+    if (req.method === "POST") {
+      req
+        .checkParams("userId", "must be valid")
+        .notEmpty()
+        .isInt();
+    }
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+      return res
+        .statusCode(303)
+        .json({ error: errors, redirect: req.headers.referer });
     } else {
       return next();
     }
