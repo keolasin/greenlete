@@ -5,9 +5,9 @@ module.exports = {
   // check if user is signed in
   check(req, res, next) {
     if (req.user) {
-      res.send({ user: req.user.id });
+      res.json({ user: req.user.id });
     } else {
-      res.send({ user: null });
+      res.json({ user: null });
     }
   },
 
@@ -24,12 +24,12 @@ module.exports = {
     userQueries.createUser(newUser, (err, user) => {
       if (err) {
         console.log(err);
-        res.redirect("/users/sign_up");
+        res.json({ createError: err, notice: "Unable to sign up, try again!" });
       } else {
         // if user created successfully, auth user by calling passport.authenticate()
         // redirects to dashboard, uses function in passport-config.js where local strategy defined
         passport.authenticate("local")(req, res, () => {
-          res.redirect(`/users/${req.user.id}/how_to`);
+          res.json({ redirect: `/users/${req.user.id}/how_to` });
         });
       }
     });
@@ -41,9 +41,12 @@ module.exports = {
       if (!req.user) {
         // send error message and redirect to sign in page
         console.log(`Error during sign-in`);
-        res.redirect("/users/sign_in");
+        res.json({
+          notice: "Unable to sign-in, try again!",
+          redirect: "/users/sign_in"
+        });
       } else {
-        res.redirect(`/users/${req.user.id}/dashboard`);
+        res.json({ redirect: `/users/${req.user.id}/dashboard` });
       }
     });
   },
@@ -52,9 +55,9 @@ module.exports = {
   signOut(req, res, next) {
     if (req.user) {
       req.logout();
-      res.redirect("/");
+      res.send({ user: null });
     } else {
-      res.send({ message: "No user to log out" });
+      res.send({ notice: "No user to log out" });
     }
   }
 };

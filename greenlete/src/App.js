@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
 
@@ -46,38 +46,61 @@ class App extends Component {
   componentWillMount() {
     this.checkUser();
   }
+  componentDidMount() {
+    this.checkUser();
+  }
 
   render() {
+    let { loggedIn, userData } = this.state;
+
     return (
       <div className="App">
         <Navbar
           updateUser={this.updateUser}
-          loggedIn={this.state.loggedIn}
-          userData={this.state.userData}
+          loggedIn={loggedIn}
+          userData={userData}
         />
         <main>
           <Route
             exact
             path="/"
-            render={props => (
-              <Landing {...props} updateUser={this.updateUser} />
-            )}
+            render={props =>
+              loggedIn ? (
+                <Redirect to={`/users/${userData.id}/dashboard`} />
+              ) : (
+                <Landing {...props} />
+              )
+            }
           />
           <Route
             path="/users/sign_up"
-            render={props => <SignUp {...props} updateUser={this.updateUser} />}
+            render={props => (
+              <SignUp
+                {...props}
+                updateUser={this.updateUser}
+                userData={userData}
+              />
+            )}
           />
           <Route
             path="/users/sign_in"
-            render={props => <SignIn {...props} updateUser={this.updateUser} />}
+            render={props => (
+              <SignIn
+                {...props}
+                updateUser={this.updateUser}
+                userData={userData}
+              />
+            )}
           />
           <Route
             path={`/users/:id/dashboard`}
-            render={props => <Dashboard {...props} />}
+            render={props => (
+              <Dashboard {...props} userData={userData} loggedIn={loggedIn} />
+            )}
           />
           <Route
             path={`/users/:id/how_to`}
-            render={props => <HowTo {...props} />}
+            render={props => <HowTo {...props} userData={userData} />}
           />
         </main>
         <Footer />

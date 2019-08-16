@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { styles } from "../styles/navbar";
 
@@ -29,40 +29,42 @@ class Navbar extends Component {
   }
 
   render() {
-    const loggedIn = this.props.loggedIn;
-    let { userData } = this.props;
+    let { userData, loggedIn } = this.props;
     let dashboardPath = loggedIn ? `/users/${userData}/dashboard` : "/";
 
     return (
       <header className="navbar">
-        <Link to={dashboardPath} id="main-site-name">
+        <NavLink to={dashboardPath} id="main-site-name">
           Greenlete
-        </Link>
+        </NavLink>
 
         {loggedIn ? (
           <section style={styles.secondaryNavContainer}>
-            <Link to={`/users/${userData}/stats`} style={styles.dashLinks}>
+            <NavLink to={`/users/${userData}/stats`} style={styles.dashLinks}>
               Stats
-            </Link>
-            <Link to={`/users/${userData}/addWorkout`} style={styles.dashLinks}>
+            </NavLink>
+            <NavLink
+              to={`/users/${userData}/addWorkout`}
+              style={styles.dashLinks}
+            >
               Add a workout
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/users/sign_in"
               onClick={event => this.logout(event)}
               style={styles.largeButton}
             >
               Logout
-            </Link>
+            </NavLink>
           </section>
         ) : (
           <section>
-            <Link to="/users/sign_in" style={styles.largeButton}>
+            <NavLink to="/users/sign_in" style={styles.largeButton}>
               Sign in
-            </Link>
-            <Link to="/users/sign_up" style={styles.largeButton}>
+            </NavLink>
+            <NavLink to="/users/sign_up" style={styles.largeButton}>
               Sign Up
-            </Link>
+            </NavLink>
           </section>
         )}
       </header>

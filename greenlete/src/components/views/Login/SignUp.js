@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import TotalsTracker from "../../common/TotalsTracker";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
+import { Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
@@ -12,8 +10,11 @@ class SignUp extends Component {
     this.state = {
       username: "",
       email: "",
-      password: ""
+      password: "",
+      redirect: "",
+      notice: ""
     };
+
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
@@ -34,15 +35,17 @@ class SignUp extends Component {
       data: this.state
     })
       .then(res => {
-        console.log(res);
-        if (!res.data.errorMessage) {
+        if (!res.data.notice) {
           this.props.updateUser({
             loggedIn: true,
             userData: res.data.user
           });
+          this.state.redirect = res.data.redirect;
         } else {
-          let error = res.error;
-          console.log(error);
+          this.state.notice = res.data.notice;
+          this.state.redirect = res.data.redirect;
+          console.log(this.state.notice);
+          console.log(this.state.redirect);
         }
       })
       .catch(error => {
@@ -52,6 +55,11 @@ class SignUp extends Component {
   }
 
   render() {
+    let { redirect, notice } = this.state;
+    let { userData } = this.props;
+    if (userData && redirect === `/users/${userData.id}/how_to`) {
+      return <Redirect to={`/users/${userData.id}/how_to`} />;
+    }
     return (
       <article className="sign-in-page">
         <section className="sign-up-images">
@@ -80,7 +88,7 @@ class SignUp extends Component {
               value={this.state.username}
               onChange={this.handleInputChange}
               required
-              autofocus
+              autoFocus
             />
 
             <TextField
