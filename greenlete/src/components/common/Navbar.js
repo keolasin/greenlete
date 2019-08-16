@@ -44,7 +44,10 @@ class Navbar extends Component {
             <Link to={`/users/${userData}/stats`} style={styles.dashLinks}>
               Stats
             </Link>
-            <Link to={`/users/${userData}/addWorkout`} style={styles.dashLinks}>
+            <Link
+              to={`/users/${userData}/workouts/addWorkout`}
+              style={styles.dashLinks}
+            >
               Add a workout
             </Link>
             <Link

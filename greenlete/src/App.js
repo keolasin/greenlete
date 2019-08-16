@@ -10,6 +10,7 @@ import SignUp from "./components/views/Login/SignUp";
 import SignIn from "./components/views/Login/SignIn";
 import Dashboard from "./components/views/Dashboard/Dashboard";
 import HowTo from "./components/views/Dashboard/HowTo";
+import AddWorkouts from "./components/views/Workouts/AddWorkout";
 
 class App extends Component {
   constructor(props) {
@@ -78,6 +79,10 @@ class App extends Component {
           <Route
             path={`/users/:id/how_to`}
             render={props => <HowTo {...props} />}
+          />
+          <Route
+            path={`/users/:id/workouts/addWorkout`}
+            render={props => <AddWorkouts {...props} />}
           />
         </main>
         <Footer />
