@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 import Button from "@material-ui/core/Button";
@@ -13,6 +14,7 @@ class SignIn extends Component {
       password: ""
     };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   handleInputChange(event) {
@@ -32,20 +34,25 @@ class SignIn extends Component {
       data: this.state
     })
       .then(res => {
+        console.log(res.data.user);
         if (res.status === 200) {
           this.props.updateUser({
             loggedIn: true,
-            userData: res.data.user
+            userData: res.data.username
           });
         }
       })
       .catch(error => {
-        console.log("Login error");
-        console.log(error);
+        console.log("Login error", error);
       });
   }
 
   render() {
+    let { userData } = this.props;
+    console.log(userData);
+    if (userData) {
+      return <Redirect to={`/users/${userData}/dashboard`} />;
+    }
     return (
       <article className="sign-in-page">
         <section className="sign-in-box">
@@ -55,7 +62,7 @@ class SignIn extends Component {
           <Button type="submit" variant="outlined" color="primary">
             Strava
           </Button>
-          <form action="/api/users/sign_in" method="post">
+          <form onSubmit={this.onSubmit}>
             <TextField
               id="outlined-name"
               label="Username"
@@ -84,7 +91,12 @@ class SignIn extends Component {
               required
             />
 
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onSubmit={event => this.onSubmit(event)}
+            >
               Sign in
             </Button>
           </form>

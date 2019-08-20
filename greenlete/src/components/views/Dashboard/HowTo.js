@@ -36,9 +36,6 @@ class HowTo extends Component {
             description="Upload it here and keep track of your progress!"
           />
         </section>
-        <Button variant="outlined" color="primary" href="">
-          Let's go!
-        </Button>
       </article>
     );
   }

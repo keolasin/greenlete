@@ -30,7 +30,9 @@ class Navbar extends Component {
 
   render() {
     let { userData, loggedIn } = this.props;
-    let dashboardPath = loggedIn ? `/users/${userData}/dashboard` : "/";
+    let dashboardPath = loggedIn
+      ? `/users/${this.props.userData}/dashboard`
+      : "/";
 
     return (
       <header className="navbar">
@@ -49,13 +51,9 @@ class Navbar extends Component {
             >
               Add a workout
             </NavLink>
-            <NavLink
-              to="/users/sign_in"
-              onClick={event => this.logout(event)}
-              style={styles.largeButton}
-            >
+            <button onClick={this.logout} style={styles.largeButton}>
               Logout
-            </NavLink>
+            </button>
           </section>
         ) : (
           <section>

@@ -15,9 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
-      loggedIn: false,
-      userData: null
+      isLoading: false
     };
 
     this.updateUser = this.updateUser.bind(this);
@@ -52,7 +50,7 @@ class App extends Component {
 
   render() {
     let { loggedIn, userData } = this.state;
-
+    console.log(loggedIn, userData);
     return (
       <div className="App">
         <Navbar
@@ -66,7 +64,7 @@ class App extends Component {
             path="/"
             render={props =>
               loggedIn ? (
-                <Redirect to={`/users/${userData.id}/dashboard`} />
+                <Redirect to={`/users/${this.state.userData}/dashboard`} />
               ) : (
                 <Landing {...props} />
               )
@@ -93,13 +91,13 @@ class App extends Component {
             )}
           />
           <Route
-            path={`/users/:id/dashboard`}
+            path={`/users/${this.state.userData}/dashboard`}
             render={props => (
               <Dashboard {...props} userData={userData} loggedIn={loggedIn} />
             )}
           />
           <Route
-            path={`/users/:id/how_to`}
+            path={`/users/${this.state.userData}/how_to`}
             render={props => <HowTo {...props} userData={userData} />}
           />
         </main>

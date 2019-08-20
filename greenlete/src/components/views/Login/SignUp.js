@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import Notice from "../../common/Notice";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
@@ -10,12 +11,11 @@ class SignUp extends Component {
     this.state = {
       username: "",
       email: "",
-      password: "",
-      redirect: "",
-      notice: ""
+      password: ""
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   handleInputChange(event) {
@@ -26,26 +26,27 @@ class SignUp extends Component {
     this.setState({ [name]: value });
   }
 
-  onSubmit(event) {
+  async onSubmit(event) {
     event.preventDefault();
 
-    axios({
+    await axios({
       method: "post",
       url: "/api/users/register",
       data: this.state
     })
       .then(res => {
-        if (!res.data.notice) {
+        console.log(res.data);
+        if (!res.data.error) {
+          this.setState({ redirect: res.data.redirect }); // set redirect path to how_to page on successful sign-up
           this.props.updateUser({
+            // update user object in parent app state
             loggedIn: true,
-            userData: res.data.user
+            userData: res.data.username
           });
-          this.state.redirect = res.data.redirect;
         } else {
-          this.state.notice = res.data.notice;
-          this.state.redirect = res.data.redirect;
-          console.log(this.state.notice);
-          console.log(this.state.redirect);
+          this.setState({
+            notice: res.data.error // render error if sign-up fails
+          });
         }
       })
       .catch(error => {
@@ -55,10 +56,9 @@ class SignUp extends Component {
   }
 
   render() {
-    let { redirect, notice } = this.state;
     let { userData } = this.props;
-    if (userData && redirect === `/users/${userData.id}/how_to`) {
-      return <Redirect to={`/users/${userData.id}/how_to`} />;
+    if (userData) {
+      return <Redirect to={`/users/${userData}/how_to`} />;
     }
     return (
       <article className="sign-in-page">
@@ -76,7 +76,8 @@ class SignUp extends Component {
           <Button type="submit" variant="outlined" color="primary">
             Strava
           </Button>
-          <form action="/api/users/register" method="post">
+          <Notice message={this.state.notice} />
+          <form onSubmit={this.onSubmit}>
             <TextField
               id="outlined-name"
               label="Username"
@@ -86,7 +87,7 @@ class SignUp extends Component {
               margin="normal"
               variant="outlined"
               value={this.state.username}
-              onChange={this.handleInputChange}
+              onChange={event => this.handleInputChange(event)}
               required
               autoFocus
             />
@@ -101,7 +102,7 @@ class SignUp extends Component {
               margin="normal"
               variant="outlined"
               value={this.state.email}
-              onChange={this.handleInputChange}
+              onChange={event => this.handleInputChange(event)}
               required
             />
 
@@ -115,10 +116,15 @@ class SignUp extends Component {
               margin="normal"
               variant="outlined"
               value={this.state.password}
-              onChange={this.handleInputChange}
+              onChange={event => this.handleInputChange(event)}
               required
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onSubmit={event => this.onSubmit(event)}
+            >
               Join
             </Button>
           </form>

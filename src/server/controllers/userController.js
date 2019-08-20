@@ -5,9 +5,9 @@ module.exports = {
   // check if user is signed in
   check(req, res, next) {
     if (req.user) {
-      res.json({ user: req.user.id });
+      res.json({ username: req.user.username });
     } else {
-      res.json({ user: null });
+      res.json({ username: null });
     }
   },
 
@@ -24,12 +24,19 @@ module.exports = {
     userQueries.createUser(newUser, (err, user) => {
       if (err) {
         console.log(err);
-        res.json({ createError: err, notice: "Unable to sign up, try again!" });
+        res.json({
+          notice: "Unable to sign up, try again!",
+          redirect: "/users/sign_up"
+        });
       } else {
         // if user created successfully, auth user by calling passport.authenticate()
         // redirects to dashboard, uses function in passport-config.js where local strategy defined
+
         passport.authenticate("local")(req, res, () => {
-          res.json({ redirect: `/users/${req.user.id}/how_to` });
+          res.json({
+            username: req.user.username,
+            redirect: `/users/${req.user.username}/how_to`
+          });
         });
       }
     });
@@ -46,7 +53,10 @@ module.exports = {
           redirect: "/users/sign_in"
         });
       } else {
-        res.json({ redirect: `/users/${req.user.id}/dashboard` });
+        res.json({
+          username: req.user.username,
+          redirect: `/users/${req.user.username}/dashboard`
+        });
       }
     });
   },
