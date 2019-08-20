@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
 import MediaCard from "../../common/MediaCard";
 import Button from "@material-ui/core/Button";
 
@@ -38,9 +36,6 @@ class HowTo extends Component {
             description="Upload it here and keep track of your progress!"
           />
         </section>
-        <Button variant="outlined" color="primary" href="">
-          Let's go!
-        </Button>
       </article>
     );
   }

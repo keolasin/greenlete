@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import TotalsTracker from "../common/TotalsTracker";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 
 class Landing extends Component {

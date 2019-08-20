@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import TotalsTracker from "../../common/TotalsTracker";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import { styles } from "../../styles/dashboard";
 
@@ -10,6 +10,9 @@ class Dashboard extends Component {
   }
 
   render() {
+    if (!this.props.loggedIn) {
+      return <Redirect to="/" />;
+    }
     return (
       <article style={styles.container}>
         <header className="site-splash dashboard"></header>
