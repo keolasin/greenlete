@@ -17,7 +17,6 @@ module.exports = {
           usernameField: "username" // default value
         },
         (username, password, done) => {
-          console.log(username);
           User.findOne({
             where: { username: username }
           }).then(user => {

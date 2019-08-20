@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
 import { styles } from "../styles/card";
 
 class MediaCard extends Component {

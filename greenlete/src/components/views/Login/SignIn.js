@@ -1,18 +1,9 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 
 class SignIn extends Component {
   constructor(props) {
@@ -23,6 +14,7 @@ class SignIn extends Component {
       password: ""
     };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   handleInputChange(event) {
@@ -42,20 +34,25 @@ class SignIn extends Component {
       data: this.state
     })
       .then(res => {
+        console.log(res.data.user);
         if (res.status === 200) {
           this.props.updateUser({
             loggedIn: true,
-            userData: res.data.user
+            userData: res.data.username
           });
         }
       })
       .catch(error => {
-        console.log("Login error");
-        console.log(error);
+        console.log("Login error", error);
       });
   }
 
   render() {
+    let { userData } = this.props;
+    console.log(userData);
+    if (userData) {
+      return <Redirect to={`/users/${userData}/dashboard`} />;
+    }
     return (
       <article className="sign-in-page">
         <section className="sign-in-box">
@@ -65,7 +62,7 @@ class SignIn extends Component {
           <Button type="submit" variant="outlined" color="primary">
             Strava
           </Button>
-          <form action="/api/users/sign_in" method="post">
+          <form onSubmit={this.onSubmit}>
             <TextField
               id="outlined-name"
               label="Username"
@@ -76,7 +73,7 @@ class SignIn extends Component {
               variant="outlined"
               value={this.state.username}
               onChange={this.handleInputChange}
-              autofocus
+              autoFocus
               required
             />
 
@@ -94,7 +91,12 @@ class SignIn extends Component {
               required
             />
 
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onSubmit={event => this.onSubmit(event)}
+            >
               Sign in
             </Button>
           </form>

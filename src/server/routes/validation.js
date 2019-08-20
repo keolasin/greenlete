@@ -14,7 +14,8 @@ module.exports = {
     const errors = req.validationErrors();
 
     if (errors) {
-      return res.redirect(req.headers.referer);
+      console.log(`error: `, errors);
+      return res.json({ error: errors });
     } else {
       return next();
     }

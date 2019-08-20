@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import TotalsTracker from "../../common/TotalsTracker";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
+import { Redirect } from "react-router-dom";
+import Notice from "../../common/Notice";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
@@ -14,7 +13,9 @@ class SignUp extends Component {
       email: "",
       password: ""
     };
+
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   handleInputChange(event) {
@@ -25,24 +26,27 @@ class SignUp extends Component {
     this.setState({ [name]: value });
   }
 
-  onSubmit(event) {
+  async onSubmit(event) {
     event.preventDefault();
 
-    axios({
+    await axios({
       method: "post",
       url: "/api/users/register",
       data: this.state
     })
       .then(res => {
-        console.log(res);
-        if (!res.data.errorMessage) {
+        console.log(res.data);
+        if (!res.data.error) {
+          this.setState({ redirect: res.data.redirect }); // set redirect path to how_to page on successful sign-up
           this.props.updateUser({
+            // update user object in parent app state
             loggedIn: true,
-            userData: res.data.user
+            userData: res.data.username
           });
         } else {
-          let error = res.error;
-          console.log(error);
+          this.setState({
+            notice: res.data.error // render error if sign-up fails
+          });
         }
       })
       .catch(error => {
@@ -52,6 +56,10 @@ class SignUp extends Component {
   }
 
   render() {
+    let { userData } = this.props;
+    if (userData) {
+      return <Redirect to={`/users/${userData}/how_to`} />;
+    }
     return (
       <article className="sign-in-page">
         <section className="sign-up-images">
@@ -68,7 +76,8 @@ class SignUp extends Component {
           <Button type="submit" variant="outlined" color="primary">
             Strava
           </Button>
-          <form action="/api/users/register" method="post">
+          <Notice message={this.state.notice} />
+          <form onSubmit={this.onSubmit}>
             <TextField
               id="outlined-name"
               label="Username"
@@ -78,9 +87,9 @@ class SignUp extends Component {
               margin="normal"
               variant="outlined"
               value={this.state.username}
-              onChange={this.handleInputChange}
+              onChange={event => this.handleInputChange(event)}
               required
-              autofocus
+              autoFocus
             />
 
             <TextField
@@ -93,7 +102,7 @@ class SignUp extends Component {
               margin="normal"
               variant="outlined"
               value={this.state.email}
-              onChange={this.handleInputChange}
+              onChange={event => this.handleInputChange(event)}
               required
             />
 
@@ -107,10 +116,15 @@ class SignUp extends Component {
               margin="normal"
               variant="outlined"
               value={this.state.password}
-              onChange={this.handleInputChange}
+              onChange={event => this.handleInputChange(event)}
               required
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              onSubmit={event => this.onSubmit(event)}
+            >
               Join
             </Button>
           </form>
