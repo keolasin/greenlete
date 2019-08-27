@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { styles } from "../../styles/addWorkout.js";
 
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -25,8 +24,7 @@ class AddWorkout extends Component {
       distanceUnits: "",
       duration: "",
       litterCount: "",
-      userId: this.props.userData,
-      redirectPath: ""
+      username: this.props.userData
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -40,16 +38,14 @@ class AddWorkout extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-
     axios({
       method: "post",
-      url: `/api/users/${this.props.userData.username}/workouts/create`,
+      url: `/api/users/${this.props.userData}/workouts/create`,
       data: this.state
     })
       .then(res => {
         if (res.status === 200) {
-          this.props.updateWorkout(res.data.workoutData);
-          this.state.redirectPath = res.data.redirectPath;
+          console.log(`success`);
         }
       })
       .catch(error => {
@@ -58,13 +54,17 @@ class AddWorkout extends Component {
   }
 
   render() {
+    console.log(this.state);
     let {
       workoutType,
       distance,
       distanceUnits,
       duration,
-      litterCount
+      litterCount,
+      username
     } = this.state;
+    let { userData } = this.props;
+    console.log(userData);
 
     const units = [
       {
@@ -77,14 +77,10 @@ class AddWorkout extends Component {
       }
     ];
 
-    console.log(this.state.distanceUnits);
     return (
       <article>
         <section>
-          <form
-            action={`/api/users/${this.props.userData}/workouts/create`}
-            method="post"
-          >
+          <form onSubmit={event => this.onSubmit(event)}>
             <TextField
               id="outlined-name"
               label="Activity"

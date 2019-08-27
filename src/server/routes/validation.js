@@ -23,10 +23,7 @@ module.exports = {
   // workout validation
   validateWorkouts(req, res, next) {
     if (req.method === "POST") {
-      req
-        .checkParams("userId", "must be valid")
-        .notEmpty()
-        .isInt();
+      req.checkParams("username", "must be valid").notEmpty();
     }
 
     const errors = req.validationErrors();

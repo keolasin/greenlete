@@ -18,8 +18,8 @@ class Navbar extends Component {
       .then(res => {
         if (res.status === 200) {
           this.props.updateUser({
-            loggedIn: false,
-            userData: null
+            isLoggedIn: false,
+            username: null
           });
         }
       })
@@ -29,10 +29,8 @@ class Navbar extends Component {
   }
 
   render() {
-    let { userData, loggedIn } = this.props;
-    let dashboardPath = loggedIn
-      ? `/users/${this.props.userData}/dashboard`
-      : "/";
+    let { userData, isLoggedIn } = this.props;
+    let dashboardPath = isLoggedIn ? `/users/${userData}/dashboard` : "/";
 
     return (
       <header className="navbar">
@@ -40,7 +38,7 @@ class Navbar extends Component {
           Greenlete
         </NavLink>
 
-        {loggedIn ? (
+        {isLoggedIn ? (
           <section style={styles.secondaryNavContainer}>
             <NavLink to={`/users/${userData}/stats`} style={styles.dashLinks}>
               Stats

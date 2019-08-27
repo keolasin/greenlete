@@ -10,7 +10,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    if (!this.props.loggedIn) {
+    if (!this.props.isLoggedIn) {
       return <Redirect to="/" />;
     }
     return (

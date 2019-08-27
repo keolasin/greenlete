@@ -1,14 +1,23 @@
-const workoutQueries = require("../../db/queries.users.js");
+const workoutQueries = require("../../db/queries.workouts.js");
 
 module.exports = {
   create(req, res, next) {
+    console.log(
+      req.body.workoutType,
+      req.body.distance,
+      req.body.distanceUnits,
+      req.body.duration,
+      req.body.litterCount,
+      req.body.userData
+    );
+
     let newWorkout = {
       workoutType: req.body.workoutType,
       distance: req.body.distance,
-      distanceUnits: req.params.distanceUnits,
-      duration: req.params.duration,
-      litterCount: req.params.litterCount,
-      userId: req.user.id
+      distanceUnits: req.body.distanceUnits,
+      duration: req.body.duration,
+      litterCount: req.body.litterCount,
+      username: req.body.userData
     };
 
     workoutQueries.addWorkout(newWorkout, (err, workout) => {
@@ -16,7 +25,7 @@ module.exports = {
         res.json({
           error: err,
           message: "Problem adding workout, try again.",
-          redirectPath: `/users/${req.user.username}/addWorkout`
+          redirectPath: `/users/${req.userData}/addWorkout`
         });
         console.log(`error hit: ${err}`);
       } else {

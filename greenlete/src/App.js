@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
@@ -11,11 +11,12 @@ import SignIn from "./components/views/Login/SignIn";
 import Dashboard from "./components/views/Dashboard/Dashboard";
 import HowTo from "./components/views/Dashboard/HowTo";
 import AddWorkouts from "./components/views/Workouts/AddWorkout";
+import Mission from "./components/views/Mission.js";
 
 function App() {
   // define state hooks
   const [userData, setUserData] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // useEffect hook for API user auth
@@ -25,22 +26,25 @@ function App() {
       // async to enable isLoading state
       const result = await axios(`/api/users/check`);
       setUserData(result.data.username);
-      console.log(`result from api call: `, result.data.username);
     };
     fetchUserData();
-  }, []); // empty array as second arg means we'll only run on componentWillMount lifecycle
+    userData ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    setIsLoading(false);
+  }, [userData, isLoggedIn]); // array as second arg means we'll only run lifecycles when userData or isLoggedIn changes
 
   const updateUser = userObject => {
-    setUserData(userObject.userData);
+    setUserData(userObject.username);
     setIsLoggedIn(userObject.isLoggedIn);
-    console.log(`userObject from updateUser: `, userObject);
   };
 
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
   return (
     <div className="App">
       <Navbar
         updateUser={updateUser}
-        loggedIn={isLoggedIn}
+        isLoggedIn={isLoggedIn}
         userData={userData}
       />
       <main>
@@ -54,6 +58,12 @@ function App() {
               <Landing {...props} />
             )
           }
+        />
+        <Route
+          path="/mission"
+          render={props => (
+            <Mission {...props} updateUser={updateUser} userData={userData} />
+          )}
         />
         <Route
           path="/users/sign_up"
@@ -70,7 +80,7 @@ function App() {
         <Route
           path={`/users/${userData}/dashboard`}
           render={props => (
-            <Dashboard {...props} userData={userData} loggedIn={isLoggedIn} />
+            <Dashboard {...props} userData={userData} isLoggedIn={isLoggedIn} />
           )}
         />
         <Route
@@ -78,8 +88,8 @@ function App() {
           render={props => <HowTo {...props} userData={userData} />}
         />
         <Route
-          path={`/users/:id/workouts/addWorkout`}
-          render={props => <AddWorkouts {...props} />}
+          path={`/users/${userData}/workouts/addWorkout`}
+          render={props => <AddWorkouts {...props} userData={userData} />}
         />
       </main>
       <Footer />
