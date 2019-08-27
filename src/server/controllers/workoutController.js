@@ -8,7 +8,8 @@ module.exports = {
       req.body.distanceUnits,
       req.body.duration,
       req.body.litterCount,
-      req.body.userData
+      "userId: ",
+      req.user.dataValues.id
     );
 
     let newWorkout = {
@@ -17,7 +18,7 @@ module.exports = {
       distanceUnits: req.body.distanceUnits,
       duration: req.body.duration,
       litterCount: req.body.litterCount,
-      username: req.body.userData
+      userId: req.user.dataValues.id
     };
 
     workoutQueries.addWorkout(newWorkout, (err, workout) => {
@@ -30,7 +31,8 @@ module.exports = {
         console.log(`error hit: ${err}`);
       } else {
         console.log(`success`);
-        res.statusCode(303).json({
+        console.log(workout);
+        res.json({
           workoutData: workout,
           redirectPath: `/users/workouts/${workout.id}`
         });
@@ -38,7 +40,7 @@ module.exports = {
     });
   },
 
-  show(req, res, next) {
+  showOne(req, res, next) {
     workoutQueries.getWorkout(req.params.id, (err, workout) => {
       if (err || workout == null) {
         res.statusCode(404);
@@ -47,6 +49,16 @@ module.exports = {
           workoutData: workout,
           redirectPath: `/users/workouts/${workout.id}`
         });
+      }
+    });
+  },
+
+  showMany(req, res, next) {
+    workoutQueries.getUserWorkouts(req.params.id, (err, workouts) => {
+      if (err || workouts == null) {
+        res.statusCode(404);
+      } else {
+        res.json({ workouts }); // return array of workout objects
       }
     });
   },

@@ -10,6 +10,7 @@ import SignUp from "./components/views/Login/SignUp";
 import SignIn from "./components/views/Login/SignIn";
 import Dashboard from "./components/views/Dashboard/Dashboard";
 import HowTo from "./components/views/Dashboard/HowTo";
+import Workouts from "./components/views/Workouts/Workouts";
 import AddWorkouts from "./components/views/Workouts/AddWorkout";
 import Mission from "./components/views/Mission.js";
 
@@ -19,7 +20,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // useEffect hook for API user auth
+  // useEffect hook for user auth API
   useEffect(() => {
     // nested callback to avoid loops
     const fetchUserData = async () => {
@@ -30,6 +31,7 @@ function App() {
     fetchUserData();
     userData ? setIsLoggedIn(true) : setIsLoggedIn(false);
     setIsLoading(false);
+    console.log("loggedIn:", isLoggedIn, "userData: ", userData);
   }, [userData, isLoggedIn]); // array as second arg means we'll only run lifecycles when userData or isLoggedIn changes
 
   const updateUser = userObject => {
@@ -86,6 +88,10 @@ function App() {
         <Route
           path={`/users/${userData}/how_to`}
           render={props => <HowTo {...props} userData={userData} />}
+        />
+        <Route
+          path={`/users/${userData}/workouts`}
+          render={props => <Workouts {...props} userData={userData} />}
         />
         <Route
           path={`/users/${userData}/workouts/addWorkout`}

@@ -24,7 +24,8 @@ class AddWorkout extends Component {
       distanceUnits: "",
       duration: "",
       litterCount: "",
-      username: this.props.userData
+      username: this.props.userData.username,
+      userId: this.props.userData.id
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -45,7 +46,7 @@ class AddWorkout extends Component {
     })
       .then(res => {
         if (res.status === 200) {
-          console.log(`success`);
+          console.log("success");
         }
       })
       .catch(error => {
@@ -54,7 +55,6 @@ class AddWorkout extends Component {
   }
 
   render() {
-    console.log(this.state);
     let {
       workoutType,
       distance,

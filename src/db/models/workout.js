@@ -26,12 +26,19 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Workout.associate = function(models) {
-    Workout.belongsTo(models.User),
-      {
-        foreignKey: "userId",
-        onDelete: "CASCADE"
-      };
     // associations can be defined here
+    Workout.belongsTo(models.User, {
+      foreignKey: "userId",
+      onDelete: "CASCADE"
+    });
+
+    Workout.addScope("lastTenFor", userId => {
+      return {
+        where: { userId: userId },
+        limit: 10,
+        order: [["createdAt", "DESC"]]
+      };
+    });
   };
   return Workout;
 };

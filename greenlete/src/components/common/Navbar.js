@@ -44,10 +44,10 @@ class Navbar extends Component {
               Stats
             </NavLink>
             <NavLink
-              to={`/users/${userData}/workouts/addWorkout`}
+              to={`/users/${userData}/workouts/`}
               style={styles.dashLinks}
             >
-              Add a workout
+              Workouts
             </NavLink>
             <button onClick={this.logout} style={styles.largeButton}>
               Logout
