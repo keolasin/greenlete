@@ -37,7 +37,7 @@ class SignIn extends Component {
         console.log(res.data.user);
         if (res.status === 200) {
           this.props.updateUser({
-            loggedIn: true,
+            isLoggedIn: true,
             userData: res.data.username
           });
         }
