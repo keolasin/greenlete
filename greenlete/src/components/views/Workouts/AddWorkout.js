@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { styles } from "../../styles/addWorkout.js";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -42,7 +43,7 @@ class AddWorkout extends Component {
 
     axios({
       method: "post",
-      url: `/api/users/${this.props.userData.id}/workouts/create`,
+      url: `/api/users/${this.props.userData.username}/workouts/create`,
       data: this.state
     })
       .then(res => {
@@ -57,16 +58,26 @@ class AddWorkout extends Component {
   }
 
   render() {
+    let {
+      workoutType,
+      distance,
+      distanceUnits,
+      duration,
+      litterCount
+    } = this.state;
+
     const units = [
       {
-        value: "miles",
-        label: "Imperial"
+        value: "mi",
+        label: "mi"
       },
       {
         value: "km",
-        label: "Metric"
+        label: "km"
       }
     ];
+
+    console.log(this.state.distanceUnits);
     return (
       <article>
         <section>
@@ -83,7 +94,7 @@ class AddWorkout extends Component {
               variant="outlined"
               value={this.state.workoutType}
               onChange={this.handleInputChange}
-              autofocus
+              autoFocus
               required
             />
             <TextField
@@ -92,6 +103,7 @@ class AddWorkout extends Component {
               name="distance"
               value={this.state.distance}
               onChange={this.handleInputChange}
+              inputProps={{ min: "0", step: "1" }}
               type="number"
               className="text-field"
               InputLabelProps={{
@@ -100,7 +112,6 @@ class AddWorkout extends Component {
               margin="normal"
               variant="outlined"
             />
-            {this.state.distanceUnits === "Imperial" ? <p>mi</p> : <p>km</p>}
             <TextField
               id="outlined-select-currency"
               select
@@ -125,7 +136,9 @@ class AddWorkout extends Component {
               className="text-field"
               name="duration"
               type="number"
+              inputProps={{ min: "0", step: "15" }}
               margin="normal"
+              placeholder="minutes"
               variant="outlined"
               value={this.state.duration}
               onChange={this.handleInputChange}
@@ -139,6 +152,7 @@ class AddWorkout extends Component {
               type="number"
               margin="normal"
               variant="outlined"
+              inputProps={{ min: "0", step: "1" }}
               value={this.state.litterCount}
               onChange={this.handleInputChange}
             />

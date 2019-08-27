@@ -51,7 +51,6 @@ class App extends Component {
 
   render() {
     let { loggedIn, userData } = this.state;
-    console.log(loggedIn, userData);
     return (
       <div className="App">
         <Navbar

@@ -16,17 +16,15 @@ module.exports = {
         res.json({
           error: err,
           message: "Problem adding workout, try again.",
-          redirectPath: `/users/${req.user.id}/addWorkout`
+          redirectPath: `/users/${req.user.username}/addWorkout`
         });
         console.log(`error hit: ${err}`);
       } else {
         console.log(`success`);
-        res
-          .statusCode(303)
-          .json({
-            workoutData: workout,
-            redirectPath: `/users/workouts/${workout.id}`
-          });
+        res.statusCode(303).json({
+          workoutData: workout,
+          redirectPath: `/users/workouts/${workout.id}`
+        });
       }
     });
   },
