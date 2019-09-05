@@ -46,7 +46,7 @@ class AddWorkout extends Component {
     })
       .then(res => {
         if (res.status === 200) {
-          console.log("success");
+          console.log("Workout added!");
         }
       })
       .catch(error => {
@@ -64,7 +64,6 @@ class AddWorkout extends Component {
       username
     } = this.state;
     let { userData } = this.props;
-    console.log(userData);
 
     const units = [
       {

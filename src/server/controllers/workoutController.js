@@ -2,16 +2,6 @@ const workoutQueries = require("../../db/queries.workouts.js");
 
 module.exports = {
   create(req, res, next) {
-    console.log(
-      req.body.workoutType,
-      req.body.distance,
-      req.body.distanceUnits,
-      req.body.duration,
-      req.body.litterCount,
-      "userId: ",
-      req.user.dataValues.id
-    );
-
     let newWorkout = {
       workoutType: req.body.workoutType,
       distance: req.body.distance,
@@ -54,11 +44,14 @@ module.exports = {
   },
 
   showMany(req, res, next) {
-    workoutQueries.getUserWorkouts(req.params.id, (err, workouts) => {
-      if (err || workouts == null) {
-        res.statusCode(404);
+    console.log(req.user.id);
+    workoutQueries.getUserWorkouts(req.user.id, (err, result) => {
+      if (err || result.workouts == undefined) {
+        console.log(err);
+        // log any error to the console
       } else {
-        res.json({ workouts }); // return array of workout objects
+        console.log(result.workouts);
+        res.json(result.workouts); // return array of workout objects
       }
     });
   },

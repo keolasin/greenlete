@@ -75,34 +75,4 @@ describe("Workout", () => {
         });
     });
   });
-  /*
-  describe('#setUser()', () => {
-    it('should associate a user and a workout together', (done) => {
-      User.create({
-        email: 'timmy@gmail.com',
-        username: 'tommy',
-        password: '123456789'
-      })
-      .then((newUser) => {
-        expect(this.workout.userId).toBe(this.user.id);
-
-        this.workout.setUser(newUser)
-        .then((workout) => {
-          expect(this.workout.userId).toBe(newUser.id);
-          done();
-        });
-      });
-    });
-  });
-
-  describe('#getUser()', () => {
-    it('should return the associated user', (done) => {
-      this.workout.getUser()
-      .then((associatedUser) => {
-        expect(associatedUser.username).toBe('Linda');
-        done();
-      });
-    });
-  });
-  */
 });
