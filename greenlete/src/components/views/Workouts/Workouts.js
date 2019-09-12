@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import axios from "axios";
-import { styles } from "../../styles/addWorkout.js";
+import { styles } from "../../styles/workouts.js";
 
 import AddWorkout from "./AddWorkout.js";
+import MediaCard from "../../common/MediaCard.js";
 
 function Workouts(props) {
   // set-up state hooks for fetching user workouts
@@ -23,19 +24,21 @@ function Workouts(props) {
 
   console.log("userWorkouts", userWorkouts);
   return (
-    <article>
-      <section>
-        Add workouts
-        <AddWorkout userData={props.userData} />
-      </section>
-      <section>
-        Recent workouts
+    <article style={styles.container}>
+      <AddWorkout userData={props.userData} />
+      <h3>Recent workouts</h3>
+      <section style={styles.recentWorkouts}>
         {userWorkouts
           ? userWorkouts.map((item, index) => {
               return (
-                <li key={index}>
-                  {item.workoutType} {item.createdAt}
-                </li>
+                <MediaCard
+                  key={index}
+                  headline={item.workoutType}
+                  imageSource=""
+                  imageAlt="Workout-image"
+                  title={item.createdAt}
+                  description={`Litter: ${item.litterCount}`}
+                />
               );
             })
           : null}

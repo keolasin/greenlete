@@ -1,3 +1,6 @@
 export const styles = {
-  preview: {}
+  form: {
+    display: "flex",
+    flexFlow: "column"
+  }
 };

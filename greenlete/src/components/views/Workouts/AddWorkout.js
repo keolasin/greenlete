@@ -77,86 +77,85 @@ class AddWorkout extends Component {
     ];
 
     return (
-      <article>
-        <section>
-          <form onSubmit={event => this.onSubmit(event)}>
-            <TextField
-              id="outlined-name"
-              label="Activity"
-              className="text-field"
-              name="workoutType"
-              margin="normal"
-              variant="outlined"
-              value={this.state.workoutType}
-              onChange={this.handleInputChange}
-              autoFocus
-              required
-            />
-            <TextField
-              id="outlined-number"
-              label="Distance"
-              name="distance"
-              value={this.state.distance}
-              onChange={this.handleInputChange}
-              inputProps={{ min: "0", step: "1" }}
-              type="number"
-              className="text-field"
-              InputLabelProps={{
-                shrink: true
-              }}
-              margin="normal"
-              variant="outlined"
-            />
-            <TextField
-              id="outlined-select-currency"
-              select
-              label="Select"
-              className="text-field"
-              name="distanceUnits"
-              value={this.state.distanceUnits}
-              onChange={this.handleInputChange}
-              helperText="Please select units"
-              margin="normal"
-              variant="outlined"
-            >
-              {units.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              id="outlined-name"
-              label="Duration"
-              className="text-field"
-              name="duration"
-              type="number"
-              inputProps={{ min: "0", step: "15" }}
-              margin="normal"
-              placeholder="minutes"
-              variant="outlined"
-              value={this.state.duration}
-              onChange={this.handleInputChange}
-              required
-            />
-            <TextField
-              id="outlined-name"
-              label="Litter grabbed"
-              className="text-field"
-              name="litterCount"
-              type="number"
-              margin="normal"
-              variant="outlined"
-              inputProps={{ min: "0", step: "1" }}
-              value={this.state.litterCount}
-              onChange={this.handleInputChange}
-            />
-            <Button type="submit" variant="contained" color="primary">
-              Add workout
-            </Button>
-          </form>
-        </section>
-      </article>
+      <section>
+        <h3>Add a workout</h3>
+        <form onSubmit={event => this.onSubmit(event)}>
+          <TextField
+            id="outlined-name"
+            label="Activity"
+            className="text-field"
+            name="workoutType"
+            margin="normal"
+            variant="outlined"
+            value={this.state.workoutType}
+            onChange={this.handleInputChange}
+            autoFocus
+            required
+          />
+          <TextField
+            id="outlined-number"
+            label="Distance"
+            name="distance"
+            value={this.state.distance}
+            onChange={this.handleInputChange}
+            inputProps={{ min: "0", step: "1" }}
+            type="number"
+            className="text-field"
+            InputLabelProps={{
+              shrink: true
+            }}
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select"
+            className="text-field"
+            name="distanceUnits"
+            value={this.state.distanceUnits}
+            onChange={this.handleInputChange}
+            helperText="Please select units"
+            margin="normal"
+            variant="outlined"
+          >
+            {units.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            id="outlined-name"
+            label="Duration"
+            className="text-field"
+            name="duration"
+            type="number"
+            inputProps={{ min: "0", step: "15" }}
+            margin="normal"
+            placeholder="minutes"
+            variant="outlined"
+            value={this.state.duration}
+            onChange={this.handleInputChange}
+            required
+          />
+          <TextField
+            id="outlined-name"
+            label="Litter grabbed"
+            className="text-field"
+            name="litterCount"
+            type="number"
+            margin="normal"
+            variant="outlined"
+            inputProps={{ min: "0", step: "1" }}
+            value={this.state.litterCount}
+            onChange={this.handleInputChange}
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Add workout
+          </Button>
+        </form>
+      </section>
     );
   }
 }

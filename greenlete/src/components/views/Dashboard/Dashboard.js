@@ -15,11 +15,7 @@ class Dashboard extends Component {
     }
     return (
       <article style={styles.container}>
-        <header className="site-splash dashboard"></header>
-
-        <Container maxWidth="lg">
-          <p>Welcome!</p>
-        </Container>
+        <header className="site-splash dashboard">Welcome!</header>
         <TotalsTracker />
       </article>
     );
