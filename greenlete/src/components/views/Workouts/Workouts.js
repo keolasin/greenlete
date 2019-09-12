@@ -22,7 +22,6 @@ function Workouts(props) {
     setIsLoading(false);
   }, []); // empty array as second argument to useEffect means we only run once, after first render, to avoid infinite loop since state is being changed in our useEffect
 
-  console.log("userWorkouts", userWorkouts);
   return (
     <article style={styles.container}>
       <AddWorkout userData={props.userData} />
