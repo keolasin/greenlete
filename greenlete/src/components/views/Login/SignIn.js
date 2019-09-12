@@ -27,18 +27,16 @@ class SignIn extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-
     axios({
       method: "post",
       url: "/api/users/sign_in",
       data: this.state
     })
       .then(res => {
-        console.log(res.data.user);
         if (res.status === 200) {
           this.props.updateUser({
-            loggedIn: true,
-            userData: res.data.username
+            isLoggedIn: true,
+            username: res.data.username
           });
         }
       })
@@ -49,7 +47,6 @@ class SignIn extends Component {
 
   render() {
     let { userData } = this.props;
-    console.log(userData);
     if (userData) {
       return <Redirect to={`/users/${userData}/dashboard`} />;
     }

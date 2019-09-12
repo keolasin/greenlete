@@ -37,16 +37,14 @@ class SignUp extends Component {
       .then(res => {
         console.log(res.data);
         if (!res.data.error) {
-          this.setState({ redirect: res.data.redirect }); // set redirect path to how_to page on successful sign-up
+          //this.setState({ redirect: res.data.redirect }); // set redirect path to how_to page on successful sign-up
           this.props.updateUser({
             // update user object in parent app state
-            loggedIn: true,
-            userData: res.data.username
+            isLoggedIn: true,
+            username: res.data.username
           });
         } else {
-          this.setState({
-            notice: res.data.error // render error if sign-up fails
-          });
+          // this.setState({notice: res.data.error }); // render error if sign-up fails
         }
       })
       .catch(error => {

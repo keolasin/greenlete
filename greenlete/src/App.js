@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
@@ -10,101 +10,97 @@ import SignUp from "./components/views/Login/SignUp";
 import SignIn from "./components/views/Login/SignIn";
 import Dashboard from "./components/views/Dashboard/Dashboard";
 import HowTo from "./components/views/Dashboard/HowTo";
+import Workouts from "./components/views/Workouts/Workouts";
+import AddWorkouts from "./components/views/Workouts/AddWorkout";
+import Mission from "./components/views/Mission.js";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false
+function App() {
+  // define state hooks
+  const [userData, setUserData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // useEffect hook for user auth API
+  useEffect(() => {
+    // nested callback to avoid loops
+    const fetchUserData = async () => {
+      // async to enable isLoading state
+      const result = await axios(`/api/users/check`);
+      setUserData(result.data.username);
     };
+    fetchUserData();
+    userData ? setIsLoggedIn(true) : setIsLoggedIn(false);
+    setIsLoading(false);
+    console.log("loggedIn:", isLoggedIn, "userData: ", userData);
+  }, [userData, isLoggedIn]); // array as second arg means we'll only run lifecycles when userData or isLoggedIn changes
 
-    this.updateUser = this.updateUser.bind(this);
-  }
+  const updateUser = userObject => {
+    setUserData(userObject.username);
+    setIsLoggedIn(userObject.isLoggedIn);
+  };
 
-  checkUser() {
-    axios(`/api/users/check`).then(res => {
-      if (res.data.user) {
-        this.setState({
-          loggedIn: true,
-          userData: res.data.user
-        });
-      } else {
-        this.setState({
-          loggedIn: false,
-          userData: null
-        });
-      }
-    });
+  if (isLoading) {
+    return <p>Loading...</p>;
   }
-
-  updateUser(userObject) {
-    this.setState(userObject);
-  }
-
-  componentWillMount() {
-    this.checkUser();
-  }
-  componentDidMount() {
-    this.checkUser();
-  }
-
-  render() {
-    let { loggedIn, userData } = this.state;
-    console.log(loggedIn, userData);
-    return (
-      <div className="App">
-        <Navbar
-          updateUser={this.updateUser}
-          loggedIn={loggedIn}
-          userData={userData}
+  return (
+    <div className="App">
+      <Navbar
+        updateUser={updateUser}
+        isLoggedIn={isLoggedIn}
+        userData={userData}
+      />
+      <main>
+        <Route
+          exact
+          path="/"
+          render={props =>
+            isLoggedIn ? (
+              <Redirect to={`/users/${userData}/dashboard`} />
+            ) : (
+              <Landing {...props} />
+            )
+          }
         />
-        <main>
-          <Route
-            exact
-            path="/"
-            render={props =>
-              loggedIn ? (
-                <Redirect to={`/users/${this.state.userData}/dashboard`} />
-              ) : (
-                <Landing {...props} />
-              )
-            }
-          />
-          <Route
-            path="/users/sign_up"
-            render={props => (
-              <SignUp
-                {...props}
-                updateUser={this.updateUser}
-                userData={userData}
-              />
-            )}
-          />
-          <Route
-            path="/users/sign_in"
-            render={props => (
-              <SignIn
-                {...props}
-                updateUser={this.updateUser}
-                userData={userData}
-              />
-            )}
-          />
-          <Route
-            path={`/users/${this.state.userData}/dashboard`}
-            render={props => (
-              <Dashboard {...props} userData={userData} loggedIn={loggedIn} />
-            )}
-          />
-          <Route
-            path={`/users/${this.state.userData}/how_to`}
-            render={props => <HowTo {...props} userData={userData} />}
-          />
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+        <Route
+          path="/mission"
+          render={props => (
+            <Mission {...props} updateUser={updateUser} userData={userData} />
+          )}
+        />
+        <Route
+          path="/users/sign_up"
+          render={props => (
+            <SignUp {...props} updateUser={updateUser} userData={userData} />
+          )}
+        />
+        <Route
+          path="/users/sign_in"
+          render={props => (
+            <SignIn {...props} updateUser={updateUser} userData={userData} />
+          )}
+        />
+        <Route
+          path={`/users/${userData}/dashboard`}
+          render={props => (
+            <Dashboard {...props} userData={userData} isLoggedIn={isLoggedIn} />
+          )}
+        />
+        <Route
+          path={`/users/${userData}/how_to`}
+          render={props => <HowTo {...props} userData={userData} />}
+        />
+        <Route
+          path={`/users/${userData}/workouts`}
+          render={props => <Workouts {...props} userData={userData} />}
+        />
+        <Route
+          path={`/users/${userData}/workouts/addWorkout`}
+          render={props => <AddWorkouts {...props} userData={userData} />}
+        />
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
 export default App;

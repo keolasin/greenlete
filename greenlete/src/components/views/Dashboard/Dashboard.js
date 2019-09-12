@@ -10,16 +10,12 @@ class Dashboard extends Component {
   }
 
   render() {
-    if (!this.props.loggedIn) {
+    if (!this.props.isLoggedIn) {
       return <Redirect to="/" />;
     }
     return (
       <article style={styles.container}>
-        <header className="site-splash dashboard"></header>
-
-        <Container maxWidth="lg">
-          <p>Welcome!</p>
-        </Container>
+        <header className="site-splash dashboard">Welcome!</header>
         <TotalsTracker />
       </article>
     );

@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "test": "set NODE_ENV=test&& jasmine",
-    "start": "node src/server/server.js",
+    "start": "nodemon src/server/server.js",
     "heroku-postbuild": "cd greenlete && npm install && npm run build"
   },
   "repository": {
@@ -51,6 +51,7 @@
     "passport-local": "^1.0.0",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
+    "react-map-gl": "^5.0.10",
     "sequelize": "^4.32.6",
     "sequelize-cli": "^5.5.0"
   },
