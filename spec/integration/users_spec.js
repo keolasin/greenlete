@@ -62,7 +62,6 @@ describe("routes : users", () => {
           User.findOne({ where: { email: "negative" } })
             .then(user => {
               expect(user).toBeNull();
-              done();
             })
             .catch(err => {
               console.log(err);

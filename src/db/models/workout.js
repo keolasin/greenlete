@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       litterCount: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: false
       }
     },
     {}
