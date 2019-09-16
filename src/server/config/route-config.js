@@ -6,6 +6,12 @@ module.exports = {
     const userRoutes = require("../routes/users");
     const workoutRoutes = require("../routes/workouts");
 
+    // testing case, use fake auth
+    if (process.env.NODE_ENV === "test") {
+      const mockAuth = require("../../../spec/support/mock-auth.js");
+      mockAuth.fakeIt(app);
+    }
+
     // instruct app to use routes required above
     app.use(staticRoutes);
     app.use(testApiRoute);
