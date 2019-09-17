@@ -108,10 +108,10 @@ describe("routes : workouts", () => {
     });
 
     // edit/update
-    describe("POST /api/users/:username/workouts/update", () => {
+    describe("POST /api/users/:username/workouts/id/update", () => {
       it("should update the workout with the given values", done => {
         const options = {
-          url: `${base}/${this.user.username}/workouts/update`,
+          url: `${base}/${this.user.username}/workouts/${this.workout.id}/update`,
           form: {
             workoutType: "Swimming",
             distance: 2,
@@ -129,6 +129,24 @@ describe("routes : workouts", () => {
             expect(workout.distance).toBe(2);
             expect(workout.duration).toBe(60);
             done();
+          });
+        });
+      });
+    });
+    describe("POST /api/users/:username/workouts/:id/destroy", () => {
+      it("should delete the selected workout", done => {
+        const options = {
+          url: `${base}/${this.user.username}/workouts/${this.workout.id}/destroy`
+        };
+        Workout.all().then(workouts => {
+          const workoutCountBeforeDelete = workouts.length;
+          expect(workoutCountBeforeDelete).toBe(1);
+
+          request.post(options, (err, res, body) => {
+            Workout.all().then(workouts => {
+              expect(workouts.length).toBe(workoutCountBeforeDelete - 1);
+              done();
+            });
           });
         });
       });
