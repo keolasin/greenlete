@@ -48,12 +48,12 @@ describe("routes : users", () => {
     });
 
     // submit a request with invalid values and expect NOT to create user
-    it("should not create a new user with invalid attributes and redirect", done => {
+    it("should NOT create a new user with invalid attributes and redirect", done => {
       request.post(
         {
           url: `${base}register`,
           form: {
-            username: "Adam Apple",
+            username: "Tommy Title",
             email: "negative",
             password: "123456789"
           }
@@ -62,7 +62,6 @@ describe("routes : users", () => {
           User.findOne({ where: { email: "negative" } })
             .then(user => {
               expect(user).toBeNull();
-              done();
             })
             .catch(err => {
               console.log(err);

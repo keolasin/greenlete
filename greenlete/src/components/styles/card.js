@@ -2,11 +2,13 @@ export const styles = {
   card: {
     display: "flex",
     flexFlow: "column wrap",
-    width: "30%",
+    maxWidth: "50%",
     margin: "5px",
     alignItems: "center",
     backgroundColor: "#87C7E0",
-    height: "100%"
+    height: "auto",
+    width: "25%",
+    minWidth: "min-content"
   },
   img: {
     width: "auto",
@@ -19,11 +21,10 @@ export const styles = {
     width: "100%"
   },
   h2: {
-    fontSize: "1.5em",
+    fontSize: "1.3em",
     color: "#11883D",
     marginBlockStart: "0",
     marginBlockEnd: "0",
-    marginLeft: "5%",
     textAlign: "left"
   },
   description: {
@@ -32,5 +33,11 @@ export const styles = {
     margin: "0 10%",
     marginBlockStart: "0",
     marginBlockEnd: "0"
+  },
+  buttonContainer: {
+    display: "flex",
+    width: "90%",
+    justifyContent: "flex-end",
+    margin: "5px"
   }
 };

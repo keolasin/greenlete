@@ -21,7 +21,6 @@ class AddWorkout extends Component {
     this.state = {
       workoutType: "",
       distance: "",
-      distanceUnits: "",
       duration: "",
       litterCount: "",
       username: this.props.userData.username,
@@ -55,26 +54,8 @@ class AddWorkout extends Component {
   }
 
   render() {
-    let {
-      workoutType,
-      distance,
-      distanceUnits,
-      duration,
-      litterCount,
-      username
-    } = this.state;
+    let { workoutType, distance, duration, litterCount, username } = this.state;
     let { userData } = this.props;
-
-    const units = [
-      {
-        value: "mi",
-        label: "mi"
-      },
-      {
-        value: "km",
-        label: "km"
-      }
-    ];
 
     return (
       <section>
@@ -107,24 +88,6 @@ class AddWorkout extends Component {
             margin="normal"
             variant="outlined"
           />
-          <TextField
-            id="outlined-select-currency"
-            select
-            label="Select"
-            className="text-field"
-            name="distanceUnits"
-            value={this.state.distanceUnits}
-            onChange={this.handleInputChange}
-            helperText="Please select units"
-            margin="normal"
-            variant="outlined"
-          >
-            {units.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
           <TextField
             id="outlined-name"
             label="Duration"

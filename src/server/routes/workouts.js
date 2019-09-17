@@ -7,7 +7,6 @@ const helper = require("../auth/helpers");
 
 router.get("/api/users/:username/workouts/:id", workoutController.showOne);
 router.get("/api/users/:username/workouts/", workoutController.showMany);
-router.get("/api/users/:username/workouts/:id/edit", workoutController.edit);
 
 router.post(
   "/api/users/:username/workouts/create",
