@@ -48,18 +48,21 @@ module.exports = {
   },
 
   updateWorkout(id, updatedWorkout, callback) {
+    // id should be workout.id from controller
     let result = {};
     return Workout.findById(id).then(workout => {
+      // find given workout in database
       if (!workout) {
+        // not found
         return callback("Workout not found");
       }
 
       workout
         .update(updatedWorkout, {
-          fields: Object.keys(updatedWorkout)
+          fields: Object.keys(updatedWorkout) // update database item given new form info
         })
         .then(() => {
-          result["workout"] = workout;
+          result["workout"] = workout; // return updated workout to controller
           callback(null, result);
         })
         .catch(err => {
@@ -69,6 +72,7 @@ module.exports = {
   },
 
   deleteWorkout(id, callback) {
+    // expect id to be workout.id passed from controller
     return Workout.destroy({
       where: { id }
     })
