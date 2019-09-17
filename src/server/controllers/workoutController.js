@@ -67,11 +67,13 @@ module.exports = {
   },
 
   destroy(req, res, next) {
-    workoutQueries.deleteWorkout(req.user.id, (err, deletedRecordsCount) => {
+    workoutQueries.deleteWorkout(req.params.id, (err, deletedRecordsCount) => {
       if (err) {
-        res
-          .statusCode(500)
-          .json({ redirect: `/users/${req.user.id}/workouts` });
+        console.log(err);
+        res.json({
+          errorMessage: err,
+          redirect: `/users/${req.user.username}/workouts`
+        });
       } else {
         res.json({ redirect: `/users/${req.user.username}/workouts` });
       }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { styles } from "../styles/card";
 import Button from "@material-ui/core/Button";
 import EditWorkout from "../views/Workouts/EditWorkout";
+import DeleteWorkout from "../views/Workouts/DeleteWorkout";
 
 class MediaCard extends Component {
   constructor(props) {
@@ -15,7 +16,9 @@ class MediaCard extends Component {
       imageAlt,
       headline,
       description,
-      isWorkout
+      isWorkout,
+      workoutData,
+      userData
     } = this.props;
     return (
       <section style={styles.card}>
@@ -31,18 +34,8 @@ class MediaCard extends Component {
         </section>
         {isWorkout ? (
           <section style={styles.buttonContainer}>
-            <EditWorkout
-              workoutData={this.props.workoutData}
-              userData={this.props.userData}
-            />
-            <Button
-              type="submit"
-              variant="outlined"
-              color="secondary"
-              onSubmit={event => this.onSubmit(event)}
-            >
-              Delete
-            </Button>
+            <EditWorkout workoutData={workoutData} userData={userData} />
+            <DeleteWorkout workoutData={workoutData} userData={userData} />
           </section>
         ) : null}
       </section>
