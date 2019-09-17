@@ -16,12 +16,8 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      distanceUnits: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       duration: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER
       },
       litterCount: {

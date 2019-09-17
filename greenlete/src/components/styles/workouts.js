@@ -11,10 +11,9 @@ export const styles = {
   recentWorkouts: {
     height: "100%",
     display: "flex",
-    flexFlow: "row",
-    alignItems: "center",
+    flexFlow: "row wrap",
+    alignItems: "flex-start",
     justifyContent: "center",
-    justifyItems: "center",
     width: "100%",
     overflow: "auto"
   }

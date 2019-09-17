@@ -37,6 +37,9 @@ function Workouts(props) {
                   imageAlt="Workout-image"
                   title={item.createdAt}
                   description={`Litter: ${item.litterCount}`}
+                  isWorkout="true"
+                  workoutData={item}
+                  userData={props.userData}
                 />
               );
             })

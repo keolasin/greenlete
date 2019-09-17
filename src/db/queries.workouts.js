@@ -37,7 +37,7 @@ module.exports = {
           .findAll() //find last ten workouts for user using scope
           .then(workouts => {
             result["workouts"] = workouts; // store in result object
-            console.log(result.workouts);
+
             callback(null, result); // return the result object
           })
           .catch(err => {
@@ -48,6 +48,7 @@ module.exports = {
   },
 
   updateWorkout(id, updatedWorkout, callback) {
+    let result = {};
     return Workout.findById(id).then(workout => {
       if (!workout) {
         return callback("Workout not found");
@@ -58,7 +59,8 @@ module.exports = {
           fields: Object.keys(updatedWorkout)
         })
         .then(() => {
-          callback(null, workout);
+          result["workout"] = workout;
+          callback(null, result);
         })
         .catch(err => {
           callback(err);

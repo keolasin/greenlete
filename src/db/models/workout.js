@@ -11,13 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      distanceUnits: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       duration: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       litterCount: {
         type: DataTypes.INTEGER,
