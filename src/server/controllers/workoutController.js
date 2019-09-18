@@ -16,13 +16,13 @@ module.exports = {
         res.json({
           error: err,
           message: "Problem adding workout, try again.",
-          redirect: `/users/${req.userData}/addWorkout`
+          redirect: `/users/${req.user.username}/addWorkout`
         });
         console.log(`error hit: ${err}`);
       } else {
         res.json({
           workoutData: workout,
-          redirect: `/users/${req.userData}/workouts`
+          redirect: `/users/${req.user.username}/workouts`
         });
       }
     });
