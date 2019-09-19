@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE"
     });
 
+    Workout.hasMany(models.Litter, {
+      foreignKey: "workoutId",
+      as: "litter"
+    });
+
     Workout.addScope("lastTenFor", userId => {
       return {
         where: { userId: userId },

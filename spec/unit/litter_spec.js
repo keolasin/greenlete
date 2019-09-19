@@ -58,15 +58,13 @@ describe("Litter", () => {
         latitude: 37.777285,
         longitude: -122.46426,
         quantity: 1,
-        isClean: false,
         userId: this.user.id,
         workoutId: this.workout.id
       })
         .then(litter => {
-          expect(litter.latitude).toBe(37.777285);
-          expect(litter.longitude).toBe(-122.46426);
+          expect(litter.latitude).toBe("37.777285");
+          expect(litter.longitude).toBe("-122.46426");
           expect(litter.quantity).toBe(1);
-          expect(litter.isClean).toBe(false);
           expect(litter.userId).toBe(this.user.id);
           expect(litter.workoutId).toBe(this.workout.id);
           done();
@@ -77,10 +75,9 @@ describe("Litter", () => {
         });
     });
 
-    it("should not create a litter item with missing latitude, longitude, quantity, isClean, userId, or workoutId", done => {
+    it("should not create a litter item with missing latitude, longitude, quantity, userId, or workoutId", done => {
       Litter.create({
-        quantity: 2,
-        isClean: true
+        quantity: 2
       })
         .then(litter => {
           // this should not execute since it did not create the litter item,
