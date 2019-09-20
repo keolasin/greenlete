@@ -35,5 +35,21 @@ module.exports = {
     } else {
       return next();
     }
+  },
+
+  validateLitter(req, res, next) {
+    if (req.method === "POST") {
+      req.checkParams("username", "must be valid").notEmpty();
+      req.checkParams("latitude", "must be valid").notEmpty();
+      req.checkParams("longitude", "must be valid").notEmpty();
+    }
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+      return res.send(303, { error: errors, redirect: req.headers.referer });
+    } else {
+      return next();
+    }
   }
 };

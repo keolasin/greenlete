@@ -37,6 +37,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "workoutId",
       onDelete: "CASCADE"
     });
+
+    Litter.addScope("lastTwentyFor", userId => {
+      return {
+        where: { userId: userId },
+        limit: 20,
+        order: [["createdAt", "DESC"]]
+      };
+    });
   };
   return Litter;
 };
