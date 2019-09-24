@@ -14,7 +14,7 @@ module.exports = {
       });
   },
   getLitter(id, callback) {
-    return Litter.findById(id)
+    return Litter.findById(id) // find specific litter item by id in database
       .then(litter => {
         callback(null, litter);
       })
@@ -24,6 +24,7 @@ module.exports = {
   },
 
   getUserLitter(id, callback) {
+    // look for last twenty litter objects for user
     let result = {};
 
     User.findById(id).then(user => {

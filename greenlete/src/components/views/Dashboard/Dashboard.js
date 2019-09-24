@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import TotalsTracker from "../../common/TotalsTracker";
+import LitterMap from "../../common/LitterMap";
 import Container from "@material-ui/core/Container";
 import { styles } from "../../styles/dashboard";
 
@@ -16,6 +17,7 @@ class Dashboard extends Component {
     return (
       <article style={styles.container}>
         <header className="site-splash dashboard">Welcome!</header>
+        <LitterMap />
         <TotalsTracker />
       </article>
     );

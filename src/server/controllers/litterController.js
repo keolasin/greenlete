@@ -1,27 +1,81 @@
-const express = require("express");
-const router = express.Router();
-const validation = require("./validation");
+const litterQueries = require("../../db/queries.litter.js");
 
-const litterController = require("../controllers/litterController");
-const helper = require("../auth/helpers");
+module.exports = {
+  create(req, res, next) {
+    let newLitter = {
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      quantity: req.body.quantity,
+      workoutId: req.body.workoutId,
+      userId: req.user.dataValues.id
+    };
 
-router.get("/api/users/:username/litter/:id", litterController.showOne);
-router.get("/api/users/:username/litter/", litterController.showMany);
+    litterQueries.addLitter(newLitter, (err, litter) => {
+      if (err) {
+        res.json({
+          error: err,
+          message: "Problem adding litter, try again.",
+          redirect: `/users/${req.user.username}/addLitter`
+        });
+        console.log(`error hit: ${err}`);
+      } else {
+        res.json({
+          litterData: litter,
+          redirect: `/users/${req.user.username}/litter`
+        });
+      }
+    });
+  },
 
-router.post(
-  "/api/users/:username/litter/create",
-  helper.ensureAuthenticated,
-  validation.validateLitter,
-  litterController.create
-);
-router.post(
-  "/api/users/:username/litter/:id/update",
-  validation.validateLitter,
-  litterController.update
-);
-router.post(
-  "/api/users/:username/litter/:id/destroy",
-  litterController.destroy
-);
+  showOne(req, res, next) {
+    // single litter
+    litterQueries.getLitter(req.user.id, (err, result) => {
+      if (err || result.litter == null) {
+        console.log(err);
+        res.statusCode(404);
+      } else {
+        res.json(result.litter);
+      }
+    });
+  },
 
-module.exports = router;
+  showMany(req, res, next) {
+    // last 10 litters
+    litterQueries.getUserLitter(req.user.id, (err, result) => {
+      if (err || result.litters == undefined) {
+        console.log(err);
+        // log any error to the console
+      } else {
+        res.json(result.litters); // return array of litter objects
+      }
+    });
+  },
+
+  update(req, res, next) {
+    litterQueries.updateLitter(req.params.id, req.body, (err, result) => {
+      if (err || result.litter == null) {
+        console.log(err);
+        res.json({ redirect: `/users/${req.user.username}/litter` });
+      } else {
+        console.log("Successfully updated");
+        res.json({
+          redirect: `/users/${req.user.username}/litter`
+        });
+      }
+    });
+  },
+
+  destroy(req, res, next) {
+    litterQueries.deleteLitter(req.params.id, (err, deletedRecordsCount) => {
+      if (err) {
+        console.log(err);
+        res.json({
+          errorMessage: err,
+          redirect: `/users/${req.user.username}/litter`
+        });
+      } else {
+        res.json({ redirect: `/users/${req.user.username}/litter` });
+      }
+    });
+  }
+};
