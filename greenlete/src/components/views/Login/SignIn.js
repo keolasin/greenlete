@@ -25,6 +25,11 @@ class SignIn extends Component {
     this.setState({ [name]: value });
   }
 
+  handleStravaSignin(event) {
+    event.preventDefault();
+    window.open("https://www.strava.com/oauth/authorize", "_self");
+  }
+
   onSubmit(event) {
     event.preventDefault();
     axios({
@@ -53,10 +58,11 @@ class SignIn extends Component {
     return (
       <article className="sign-in-page">
         <section className="sign-in-box">
-          <Button type="submit" variant="outlined" color="primary">
-            Google
-          </Button>
-          <Button type="submit" variant="outlined" color="primary">
+          <Button
+            onClick={this.handleStravaSignin}
+            variant="outlined"
+            color="primary"
+          >
             Strava
           </Button>
           <form onSubmit={this.onSubmit}>

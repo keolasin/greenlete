@@ -69,5 +69,17 @@ module.exports = {
     } else {
       res.send({ notice: "No user to log out" });
     }
+  },
+
+  // strava auth
+  stravaSignIn(req, res, next) {
+    passport.authenticate("strava");
+  },
+  stravaAuth(req, res, next) {
+    passport.authenticate("strava", { failureRedirect: "/users/sign_in" });
+    res.json({
+      username: req.user.username,
+      redirect: `/users/sign_in`
+    });
   }
 };

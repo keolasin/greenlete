@@ -1,6 +1,7 @@
 // handles authentication using passport
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const StravaStrategy = require("passport-strava").Strategy;
 const User = require("../../db/models").User;
 const authHelper = require("../auth/helpers");
 
@@ -33,6 +34,21 @@ module.exports = {
       )
     );
 
+    // strava strategy
+    passport.use(
+      new StravaStrategy(
+        {
+          clientID: process.env.STRAVA_CLIENT_ID,
+          clientSecret: process.env.STRAVA_CLIENT_SECRET,
+          callbackURL: "/api/users/sign_in/strava/return"
+        },
+        (accessToken, refreshToken, profile, callback) => {
+          User.findOrCreate({ where: { stravaId: profile.id } }).then(user => {
+            return done(null, user);
+          });
+        }
+      )
+    );
     // stores authenticated user.id and stores in session
     passport.serializeUser((user, callback) => {
       callback(null, user.id);
