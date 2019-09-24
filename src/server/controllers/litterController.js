@@ -6,7 +6,6 @@ module.exports = {
       latitude: req.body.latitude,
       longitude: req.body.longitude,
       quantity: req.body.quantity,
-      workoutId: req.body.workoutId,
       userId: req.user.dataValues.id
     };
 
@@ -15,13 +14,13 @@ module.exports = {
         res.json({
           error: err,
           message: "Problem adding litter, try again.",
-          redirect: `/users/${req.user.username}/addLitter`
+          redirect: `/users/${req.user.username}/`
         });
         console.log(`error hit: ${err}`);
       } else {
         res.json({
           litterData: litter,
-          redirect: `/users/${req.user.username}/litter`
+          redirect: `/users/${req.user.username}/`
         });
       }
     });

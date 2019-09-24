@@ -1,6 +1,7 @@
 import React from "react";
 import { styles } from "../styles/litterMap";
 import Button from "@material-ui/core/Button";
+import AddLitterForm from "./AddLitterForm";
 
 const defaultContainer = ({ children }) => (
   <div style={styles.controlStyle}>{children}</div>
@@ -15,11 +16,11 @@ export default function MapControlPanel(props) {
         Pinpoint the location you've noticed litter, or where you've picked up
         litter!
       </p>
-      {props.isForm ? (
-        <Button type="submit" variant="contained" color="primary">
-          Add Litter
-        </Button>
-      ) : null}
+      <AddLitterForm
+        userData={props.userData}
+        latitude={props.latitude}
+        longitude={props.longitude}
+      />
     </Container>
   );
 }

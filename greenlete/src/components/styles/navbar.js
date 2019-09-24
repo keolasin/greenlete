@@ -15,6 +15,15 @@ export const styles = {
     flex: "20%",
     maxWidth: "120px"
   },
+  logout: {
+    backgroundColor: "rgba(136, 232, 171, 0.1)",
+    border: "2px solid #115f7d",
+    fontFamily: "Bungee",
+    color: "#11883d",
+    flex: "20%",
+    maxWidth: "120px",
+    fontSize: "0.9em"
+  },
   dashLinks: {
     fontFamily: "Bungee",
     color: "#3598C0",

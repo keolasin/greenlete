@@ -49,7 +49,7 @@ class Navbar extends Component {
             >
               Workouts
             </NavLink>
-            <button onClick={this.logout} style={styles.largeButton}>
+            <button onClick={this.logout} style={styles.logout}>
               Logout
             </button>
           </section>

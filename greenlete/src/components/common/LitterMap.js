@@ -34,7 +34,6 @@ export default function LitterMap(props) {
   const [events, setEvents] = useState({});
 
   let updateViewport = viewport => {
-    console.log(viewport);
     setViewport(viewport);
   };
 
@@ -94,6 +93,9 @@ export default function LitterMap(props) {
         containerComponent={props.containerComponent}
         events={events}
         isForm={true}
+        latitude={marker.latitude}
+        longitude={marker.longitude}
+        userData={props.userData}
       />
     </MapGL>
   );
