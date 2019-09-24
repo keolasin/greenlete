@@ -54,7 +54,7 @@ class Navbar extends Component {
             </button>
           </section>
         ) : (
-          <section>
+          <section style={styles.loginContainer}>
             <NavLink to="/users/sign_in" style={styles.largeButton}>
               Sign in
             </NavLink>

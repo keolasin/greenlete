@@ -7,8 +7,8 @@ export const styles = {
   },
   navStyle: {
     position: "absolute",
-    top: 0,
-    left: 0,
+    top: "0",
+    left: "0",
     padding: "10px"
   },
   controlStyle: {
@@ -26,20 +26,15 @@ export const styles = {
     textTransform: "uppercase",
     outline: "none"
   },
-  geolocateStyle: {
-    position: "absolute",
-    top: "0",
-    left: "0",
-    margin: "10"
-  },
   headText: {
     color: "#11883d",
-    fontSize: "1.4em",
-    fontFamily: "Roboto"
+    fontSize: "medium",
+    fontFamily: "filson-pro",
+    fontWeight: "700"
   },
   text: {
-    fontSize: "1.2em",
-    fontFamily: "Roboto"
-  },
-  infoBox: {}
+    fontSize: "regular",
+    fontFamily: "filson-pro",
+    fontWeight: "light"
+  }
 };

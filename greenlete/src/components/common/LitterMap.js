@@ -83,7 +83,6 @@ export default function LitterMap(props) {
       <div className="nav" style={styles.navStyle}>
         <NavigationControl onViewportChange={updateViewport} />
         <GeolocateControl
-          style={styles.geolocateStyle}
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
         />

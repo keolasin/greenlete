@@ -15,7 +15,7 @@ export const styles = {
     height: "40%"
   },
   textBox: {
-    fontFamily: "Bungee",
+    fontFamily: "filson-pro",
     backgroundColor: "#88E8AB",
     height: "60%",
     width: "100%"
