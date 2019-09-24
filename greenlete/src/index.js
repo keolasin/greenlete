@@ -6,6 +6,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import theme from "./components/theme";
+require("dotenv").config();
 
 ReactDOM.render(
   <BrowserRouter>

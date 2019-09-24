@@ -5,6 +5,7 @@ module.exports = {
     const testApiRoute = require("../routes/test");
     const userRoutes = require("../routes/users");
     const workoutRoutes = require("../routes/workouts");
+    const litterRoutes = require("../routes/litter");
 
     // testing case, use fake auth
     if (process.env.NODE_ENV === "test") {
@@ -17,5 +18,6 @@ module.exports = {
     app.use(testApiRoute);
     app.use(userRoutes);
     app.use(workoutRoutes);
+    app.use(litterRoutes);
   }
 };

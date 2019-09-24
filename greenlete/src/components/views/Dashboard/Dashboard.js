@@ -1,25 +1,21 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import TotalsTracker from "../../common/TotalsTracker";
+import LitterMap from "../../common/LitterMap";
 import Container from "@material-ui/core/Container";
 import { styles } from "../../styles/dashboard";
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props);
+function Dashboard(props) {
+  if (!props.userData) {
+    return <Redirect to="/" />;
   }
-
-  render() {
-    if (!this.props.isLoggedIn) {
-      return <Redirect to="/" />;
-    }
-    return (
-      <article style={styles.container}>
-        <header className="site-splash dashboard">Welcome!</header>
-        <TotalsTracker />
-      </article>
-    );
-  }
+  return (
+    <article style={styles.container}>
+      <header className="site-splash dashboard">Welcome!</header>
+      <LitterMap userData={props.userData} />
+      <TotalsTracker />
+    </article>
+  );
 }
 
 export default Dashboard;

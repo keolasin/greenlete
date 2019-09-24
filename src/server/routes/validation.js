@@ -30,8 +30,26 @@ module.exports = {
 
     if (errors) {
       return res
-        .statusCode(303)
+        .status(303)
         .json({ error: errors, redirect: req.headers.referer });
+    } else {
+      return next();
+    }
+  },
+
+  // litter validation
+  validateLitter(req, res, next) {
+    if (req.method === "POST") {
+      req.checkParams("username", "must be valid").notEmpty();
+    }
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+      console.log(errors);
+      return res
+        .status(303)
+        .send({ error: errors, redirect: req.headers.referer });
     } else {
       return next();
     }

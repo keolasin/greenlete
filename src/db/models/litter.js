@@ -1,46 +1,50 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  var Workout = sequelize.define(
-    "Workout",
+  var Litter = sequelize.define(
+    "Litter",
     {
-      workoutType: {
-        type: DataTypes.STRING,
+      latitude: {
+        type: DataTypes.DECIMAL,
         allowNull: false
       },
-      distance: {
+      longitude: {
+        type: DataTypes.DECIMAL,
+        allowNull: false
+      },
+      quantity: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      duration: {
+      workoutId: {
         type: DataTypes.INTEGER,
         allowNull: true
       },
-      litterCount: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false
       }
     },
     {}
   );
-  Workout.associate = function(models) {
+  Litter.associate = function(models) {
     // associations can be defined here
-    Workout.belongsTo(models.User, {
+    Litter.belongsTo(models.User, {
       foreignKey: "userId",
       onDelete: "CASCADE"
     });
 
-    Workout.hasMany(models.Litter, {
+    Litter.belongsTo(models.Workout, {
       foreignKey: "workoutId",
-      as: "litter"
+      onDelete: "CASCADE"
     });
 
-    Workout.addScope("lastTenFor", userId => {
+    Litter.addScope("lastTwentyFor", userId => {
       return {
         where: { userId: userId },
-        limit: 10,
+        limit: 20,
         order: [["createdAt", "DESC"]]
       };
     });
   };
-  return Workout;
+  return Litter;
 };

@@ -31,7 +31,6 @@ function App() {
     fetchUserData();
     userData ? setIsLoggedIn(true) : setIsLoggedIn(false);
     setIsLoading(false);
-    console.log("loggedIn:", isLoggedIn, "userData: ", userData);
   }, [userData, isLoggedIn]); // array as second arg means we'll only run lifecycles when userData or isLoggedIn changes
 
   const updateUser = userObject => {
