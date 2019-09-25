@@ -62,8 +62,9 @@ describe("Litter", () => {
         workoutId: this.workout.id
       })
         .then(litter => {
-          expect(litter.latitude).toBe("37.777285");
-          expect(litter.longitude).toBe("-122.46426");
+          expect(litter.latitude).toBe(37.777285);
+          console.log(litter.latitude, litter.longitude);
+          expect(litter.longitude).toBe(-122.46426);
           expect(litter.quantity).toBe(1);
           expect(litter.userId).toBe(this.user.id);
           expect(litter.workoutId).toBe(this.workout.id);
