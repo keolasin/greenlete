@@ -24,7 +24,6 @@ function Dashboard(props) {
   if (!props.userData) {
     return <Redirect to="/" />;
   }
-  console.table(userLitter);
   return (
     <article style={styles.container}>
       <header className="site-splash dashboard">Welcome!</header>
