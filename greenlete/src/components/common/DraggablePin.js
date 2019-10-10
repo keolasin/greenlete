@@ -2,18 +2,17 @@ import React from "react";
 import { paths } from "./Icons/iconPaths.js";
 import { styles } from "../styles/litterMap.js";
 
-const litterIcon = paths.litter;
+const pinIcon = paths.mainPin;
 
-export default function LitterPin(props) {
+export default function DraggablePin(props) {
   return (
     <svg
       height={props.size}
       viewBox="0 0 512 512"
-      style={styles.pin}
+      id="draggablePin"
       xmlns={paths.xmlns}
-      onClick={props.onClick}
     >
-      <path d={litterIcon} />
+      <path d={pinIcon} />
     </svg>
   );
 }

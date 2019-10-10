@@ -12,8 +12,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 export default function AddLitterForm(props) {
   // set state for adding litter
   const [open, setOpen] = useState(false);
-  const [latitude, setLatitude] = useState(props.latitude);
-  const [longitude, setLongitude] = useState(props.longitude);
+  const [latLng, setLatLng] = useState([props.latitude, props.longitude]);
   const [quantity, setQuantity] = useState(0);
 
   // handlers
@@ -28,13 +27,15 @@ export default function AddLitterForm(props) {
   // submitting update
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(quantity, latitude, longitude);
+
+    // request to api
     axios({
       method: "post",
       url: `/api/users/${props.userData}/litter/create`,
       data: {
-        latitude: latitude,
-        longitude: longitude,
+        // ensure selected coordinates are finalized for request to server
+        latitude: props.latitude,
+        longitude: props.longitude,
         quantity: quantity
       }
     })
@@ -48,7 +49,7 @@ export default function AddLitterForm(props) {
       });
     setOpen(false);
   }
-  console.log(props.latitude, props.longitude);
+
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>

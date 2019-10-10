@@ -41,5 +41,8 @@ export const styles = {
     fontSize: "1.2em",
     fontFamily: "Roboto"
   },
-  infoBox: {}
+  pin: {
+    fill: "#f00",
+    cursor: "help"
+  }
 };

@@ -39,13 +39,13 @@ module.exports = {
   },
 
   showMany(req, res, next) {
-    // last 10 litters
+    // grab last 20 litter items
     litterQueries.getUserLitter(req.user.id, (err, result) => {
-      if (err || result.litters == undefined) {
-        console.log(err);
+      if (err || result.manyLitter == undefined) {
+        console.log("error", err);
         // log any error to the console
       } else {
-        res.json(result.litters); // return array of litter objects
+        res.json(result.manyLitter); // return array of litter objects
       }
     });
   },

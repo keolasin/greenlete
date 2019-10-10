@@ -10,6 +10,29 @@
   width: 100vw;
   height: 100vh;
 }
+
+/* animations */
+@keyframes pulseColor {
+  25% {
+    fill: white;
+  }
+  50% {
+    fill: "#f00";
+  }
+  75% {
+    fill: white;
+  }
+}
+
+#draggablePin {
+  fill: #11883d;
+  animation-direction: alternate;
+  animation-name: pulseColor;
+  animation-duration: infinite;
+  transition: width 2s;
+  cursor: pointer;
+}
+
 /* navbar */
 .navbar {
   display: flex;

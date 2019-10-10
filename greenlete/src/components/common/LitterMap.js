@@ -8,6 +8,7 @@ import MapGL, {
 } from "react-map-gl";
 
 import LitterPin from "./LitterPin";
+import DraggablePin from "./DraggablePin";
 import MapControlPanel from "./MapControlPanel";
 
 import { styles } from "../styles/litterMap";
@@ -32,9 +33,48 @@ export default function LitterMap(props) {
 
   const [marker, setMarker] = useState(initialCoordinates);
   const [events, setEvents] = useState({});
+  const [popupInfo, setPopupInfo] = useState();
 
   let updateViewport = viewport => {
     setViewport(viewport);
+  };
+
+  let renderLitterMarker = (litter, index) => {
+    return (
+      <Marker
+        key={`marker-${index}`}
+        longitude={parseFloat(litter.longitude)}
+        latitude={parseFloat(litter.latitude)}
+      >
+        <LitterPin
+          size={20}
+          onClick={() => {
+            setPopupInfo(litter);
+            console.log(`clicked ${litter}`);
+          }}
+        />
+      </Marker>
+    );
+  };
+
+  let renderPopup = () => {
+    return (
+      popupInfo && (
+        <Popup
+          tipSize={5}
+          anchor="top"
+          longitude={popupInfo.longitude}
+          latitude={popupInfo.latitude}
+          closeOnClick={false}
+          onClose={() => setPopupInfo(null)}
+        >
+          <h4 style={styles.text}>
+            Litter grabbed here:{" "}
+            <strong style={styles.headText}>{popupInfo.quantity}</strong>
+          </h4>
+        </Popup>
+      )
+    );
   };
 
   let logDragEvent = (name, event) => {
@@ -68,6 +108,11 @@ export default function LitterMap(props) {
       onViewportChange={updateViewport}
       mapboxApiAccessToken={mapboxToken}
     >
+      {/* first, render any litter locations the user may have */}
+      {props.userLitter ? props.userLitter.map(renderLitterMarker) : null}
+      {renderPopup()}
+
+      {/* render a draggable marker to set location of new litter */}
       <Marker
         longitude={marker.longitude}
         latitude={marker.latitude}
@@ -78,17 +123,22 @@ export default function LitterMap(props) {
         onDrag={onMarkerDrag}
         onDragEnd={onMarkerDragEnd}
       >
-        <LitterPin size={20} />
+        <DraggablePin size={30} />
       </Marker>
-      <div className="nav" style={styles.navStyle}>
-        <NavigationControl onViewportChange={updateViewport} />
+
+      {/* viewport controls for map (zoom, geolocate) */}
+      <section className="mapNav" style={styles.navStyle}>
         <GeolocateControl
-          style={styles.geolocateStyle}
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
         />
-      </div>
+        <NavigationControl
+          onViewportChange={updateViewport}
+          style={styles.controlStyle}
+        />
+      </section>
 
+      {/* render info component for adding a new piece of litter, this component will render a form modal given the location the user selects on the map*/}
       <MapControlPanel
         containerComponent={props.containerComponent}
         events={events}
