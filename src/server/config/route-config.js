@@ -14,10 +14,10 @@ module.exports = {
     }
 
     // instruct app to use routes required above
-    app.use(staticRoutes);
     app.use(testApiRoute);
     app.use(userRoutes);
     app.use(workoutRoutes);
     app.use(litterRoutes);
+    app.use(staticRoutes);
   }
 };
